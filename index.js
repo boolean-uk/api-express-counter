@@ -5,7 +5,7 @@ const morgan = require("morgan");
 //Include the cors middleware
 const cors = require("cors");
 //Include the utils function(s)
-const findCounterNameOrReturnError = require("./utils/utils.js");
+const findCounterByName = require("./utils/utils.js");
 
 //Create a new express application
 const app = express();
@@ -36,7 +36,7 @@ app.get("/counter", (req, res) => {
 
 app.delete("/counter", (req, res) => {
   counter = 0;
-  res.json({ counter: counter });
+  res.status(201).json({ counter: counter });
 });
 
 //POST
@@ -44,26 +44,26 @@ app.delete("/counter", (req, res) => {
 app.post("/counter/increment", (req, res) => {
   // increment
   counter++;
-  res.json({ counter: counter });
+  res.status(201).json({ counter: counter });
 });
 
 app.post("/counter/decrement", (req, res) => {
   // decrement
   counter--;
-  res.json({ counter: counter });
+  res.status(201).json({ counter: counter });
 });
 
 app.post("/counter/double", (req, res) => {
   // double
-  counter = counter * 2;
-  res.json({ counter: counter });
+  counter *= 2;
+  res.status(201).json({ counter: counter });
 });
 
 //EXTENSION 1
 
 app.put("/counter", (req, res) => {
   counter = Number(req.query.value);
-  res.json({ counter: counter });
+  res.status(201).json({ counter: counter });
 });
 
 //EXTENSION 2
@@ -77,47 +77,47 @@ app.get("/counter/:name", (req, res) => {
   if (!foundCounter) {
     namedCounters.push({ name: name, counter: 0 });
     console.log("created new counter with name: " + name);
-    return res.send(`<h1>Counter has been created with name: ${name}</h1>`);
+    return res.status(201).json({ name: name, counter: 0 });
   }
   res.json({ ...foundCounter });
 });
 
 app.delete("/counter/:name", (req, res) => {
   // Delete named counter
-  const { name, index } = findCounterNameOrReturnError(req, res, namedCounters);
-  res.send(`<h1>Counter with name ${name} was deleted</h1>`);
+  const { name, index, foundCounter } = findCounterByName(req, res, namedCounters);
   namedCounters.splice(index, 1);
+  res.json({...foundCounter});
 });
 
 app.post("/counter/:name/increment", (req, res) => {
   // Increment named counter
-  const { foundCounter } = findCounterNameOrReturnError(
+  const { foundCounter } = findCounterByName(
     req,
     res,
     namedCounters
   );
   foundCounter.counter++;
-  res.json({ ...foundCounter });
+  res.status(201).json({ ...foundCounter });
 });
 
 app.post("/counter/:name/decrement", (req, res) => {
   // Decrement named counter
-  const { foundCounter } = findCounterNameOrReturnError(
+  const { foundCounter } = findCounterByName(
     req,
     res,
     namedCounters
   );
   foundCounter.counter--;
-  res.json({ ...foundCounter });
+  res.status(201).json({ ...foundCounter });
 });
 
 app.post("/counter/:name/double", (req, res) => {
   // Double named counter
-  const { foundCounter } = findCounterNameOrReturnError(
+  const { foundCounter } = findCounterByName(
     req,
     res,
     namedCounters
   );
-  foundCounter.counter = foundCounter.counter * 2;
-  res.json({ ...foundCounter });
+  foundCounter.counter *= 2;
+  res.status(201).json({ ...foundCounter });
 });

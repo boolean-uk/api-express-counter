@@ -1,4 +1,7 @@
-function findCounterNameOrReturnError(req, res, namedCounters) {
+/**
+* @throws Error if counter doesn't exist
+*/
+function findCounterByName(req, res, namedCounters) {
   const { name } = req.params;
   const foundCounter = namedCounters.find((c) => c.name === name);
   const index = namedCounters.indexOf(foundCounter);
@@ -11,4 +14,4 @@ function findCounterNameOrReturnError(req, res, namedCounters) {
   return {name, index, foundCounter}
 }
 
-module.exports = findCounterNameOrReturnError;
+module.exports = findCounterByName;
