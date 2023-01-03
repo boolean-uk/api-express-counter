@@ -30,19 +30,25 @@ app.delete("/counter", (req, res) => {
 // POST(increment the counter)
 app.post("/counter/increment", (req, res) => {
   counter++;
-  res.status(201).json({ counter, status: 201 });
+  res.status(201).json({ counter });
 });
 
 // POST(decrement the counter)
 app.post("/counter/decrement", (req, res) => {
   counter--;
-  res.status(201).json({ counter, stats: 201 });
+  res.status(201).json({ counter });
 });
 
 // POST(double the counter)
 app.post("/counter/double", (req, res) => {
   counter = counter * 2;
-  res.status(201).json({ counter, status: 201 });
+  res.status(201).json({ counter });
+});
+
+// Ext 1
+app.put("/counter", (req, res) => {
+  counter = Number(req.query.value);
+  res.status(201).json({ counter });
 });
 
 module.exports = app;
