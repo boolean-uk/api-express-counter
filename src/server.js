@@ -19,7 +19,7 @@ let counter = 0;
 
 app.get("/counter", (req, res) => {
   console.log("got request!");
-  res.json({
+  res.status(200).json({
     counter: counter,
   });
 });
@@ -27,7 +27,7 @@ app.get("/counter", (req, res) => {
 app.delete("/counter", (req, res) => {
   console.log("got request!");
   counter = 0;
-  res.json({
+  res.status(200).json({
     counter: counter,
   });
 });
@@ -35,7 +35,7 @@ app.delete("/counter", (req, res) => {
 app.post("/counter/increment", (req, res) => {
   console.log("got request!");
   counter += 1;
-  res.json({
+  res.status(201).json({
     counter: counter,
   });
 });
@@ -43,7 +43,7 @@ app.post("/counter/increment", (req, res) => {
 app.post("/counter/decrement", (req, res) => {
   console.log("got request!");
   counter -= 1;
-  res.json({
+  res.status(201).json({
     counter: counter,
   });
 });
@@ -51,6 +51,14 @@ app.post("/counter/decrement", (req, res) => {
 app.post("/counter/double", (req, res) => {
   console.log("got request!");
   counter = counter * 2;
+  res.status(201).json({
+    counter: counter,
+  });
+});
+
+app.put("/counter", (req, res) => {
+  let amount = req.query.amount;
+  counter = amount;
   res.json({
     counter: counter,
   });
