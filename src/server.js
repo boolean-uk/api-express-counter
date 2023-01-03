@@ -18,7 +18,7 @@ app.use(express.json());
 let counter = 0; // For the core criteria
 // For the extensions
 let counters = [
-  { counterName: "counterOne", counterAmount: 10 },
+  { counterName: "counterOne", counterAmount: 0 },
   { counterName: "counterTwo", counterAmount: 0 },
 ];
 
@@ -64,12 +64,37 @@ app.post("/counter/double", (req, res) => {
 app.put("/counter", (req, res) => {
   let amount = req.query.amount;
   counter = amount;
-  res.json({
+  res.status(201).json({
     counter: counter,
   });
 });
 
-// Extension
+// Extensions
+
+app.put("/counter/:name", (req, res) => {
+  let name = req.params.name;
+  let value = req.query.value;
+
+  const counter = counters.filter((counter) => {
+    if (counter.counterName === name) {
+      counter.counterAmount = value;
+      return counter;
+    }
+  })[0];
+
+  if (counter === undefined) {
+    counters.push({ counterName: name, counterAmount: value });
+    res.status(201).json({
+      counter: value,
+    });
+    return;
+  }
+
+  res.status(201).json({
+    counter: counter.counterAmount,
+  });
+});
+
 app.get("/counter/:name", (req, res) => {
   let name = req.params.name;
 
@@ -81,13 +106,13 @@ app.get("/counter/:name", (req, res) => {
 
   if (counter === undefined) {
     counters.push({ counterName: name, counterAmount: 0 });
-    res.json({
+    res.status(200).json({
       counter: 0,
     });
     return;
   }
 
-  res.json({
+  res.status(200).json({
     counter: counter.counterAmount,
   });
 });
@@ -103,13 +128,13 @@ app.delete("/counter/:name", (req, res) => {
 
   if (counter === undefined) {
     counters.push({ counterName: name, counterAmount: 0 });
-    res.json({
+    res.status(200).json({
       counter: 0,
     });
     return;
   }
 
-  res.json({
+  res.status(200).json({
     counter: counter.counterAmount,
   });
 });
@@ -125,14 +150,14 @@ app.post("/counter/:name/increment", (req, res) => {
   })[0];
 
   if (counter === undefined) {
-    counters.push({ counterName: name, counterAmount: 0 });
-    res.json({
-      counter: 0,
+    counters.push({ counterName: name, counterAmount: 1 });
+    res.status(201).json({
+      counter: 1,
     });
     return;
   }
 
-  res.json({
+  res.status(201).json({
     counter: counter.counterAmount,
   });
 });
@@ -148,14 +173,14 @@ app.post("/counter/:name/decrement", (req, res) => {
   })[0];
 
   if (counter === undefined) {
-    counters.push({ counterName: name, counterAmount: 0 });
-    res.json({
-      counter: 0,
+    counters.push({ counterName: name, counterAmount: -1 });
+    res.status(201).json({
+      counter: -1,
     });
     return;
   }
 
-  res.json({
+  res.status(201).json({
     counter: counter.counterAmount,
   });
 });
@@ -172,13 +197,13 @@ app.post("/counter/:name/double", (req, res) => {
 
   if (counter === undefined) {
     counters.push({ counterName: name, counterAmount: 0 });
-    res.json({
+    res.status(201).json({
       counter: 0,
     });
     return;
   }
 
-  res.json({
+  res.status(201).json({
     counter: counter.counterAmount,
   });
 });
