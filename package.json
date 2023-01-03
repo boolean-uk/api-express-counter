@@ -4,7 +4,8 @@
   "description": "In this exercise we will build a simple counter API using express.",
   "main": "index.js",
   "directories": {
-    "doc": "docs"
+    "doc": "docs",
+    "test": "test"
   },
   "scripts": {
     "start": "npx nodemon src/index.js",
