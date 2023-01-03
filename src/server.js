@@ -50,7 +50,7 @@ app.delete("/counter", (req, res) => {
 // Ext.1
 
 app.put("/counter", (req, res) => {
-	counter = req.query.value;
+	counter = Number(req.query.value);
 	res.status(201).json({ counter: counter });
 });
 

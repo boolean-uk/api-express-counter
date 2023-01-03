@@ -42,8 +42,8 @@ describe("Counter Endpoint", () => {
 	});
 	describe("PUT /counter", () => {
 		it("Set the counter to a specific value via a query parameter", async () => {
-			const response = await supertest(app).put(`/counter/cars?value=100`);
-			const response2 = await supertest(app).put(`/counter/cars?value=200`);
+			const response = await supertest(app).put(`/counter?value=100`);
+			const response2 = await supertest(app).put(`/counter?value=200`);
 
 			expect(response.status).toEqual(201);
 			expect(response.body.counter).toEqual(100);
