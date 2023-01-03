@@ -14,6 +14,7 @@ app.use(morgan("dev"));
 app.use(cors());
 //Tell express to parse JSON in the request body
 app.use(express.json());
+
 let value = 0;
 app.get("/", (req, res) => {
   res.send("counter");
@@ -23,13 +24,13 @@ app.get("/counter", (req, res) => {
 });
 //increase counter
 app.post("/counter/increment", (req, res) => {
-  value += 1;
+  value++;
   res.status(201);
   res.json({ counter: value });
 });
 //decrease counter
 app.post("/counter/decrement", (req, res) => {
-  value -= 1;
+  value--;
   res.status(201);
   res.json({ counter: value });
 });
@@ -42,6 +43,12 @@ app.post("/counter/double", (req, res) => {
 //reset counter to 0
 app.delete("/counter", (req, res) => {
   value = 0;
+  res.json({ counter: value });
+});
+//set counter to specic value
+app.put("/counter", (req, res) => {
+  value = parseInt(req.query.value);
+  res.status(201);
   res.json({ counter: value });
 });
 module.exports = app;
