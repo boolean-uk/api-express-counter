@@ -4,7 +4,6 @@ const express = require("express");
 const morgan = require("morgan");
 //Include the cors middleware
 const cors = require("cors");
-const { query } = require("express");
 
 //Create a new express application
 const app = express();
@@ -16,60 +15,33 @@ app.use(cors());
 //Tell express to parse JSON in the request body
 app.use(express.json());
 
-let counter = 0;
-let counters = [{ counterName: "counterOne", counterAmount: 2 }];
-
-app.get("/counter", (req, res) => {
-  console.log("got request!");
-  res.status(200).json({
-    counter: counter,
-  });
-});
-
-app.delete("/counter", (req, res) => {
-  console.log("got request!");
-  counter = 0;
-  res.status(200).json({
-    counter: counter,
-  });
-});
-
-app.post("/counter/increment", (req, res) => {
-  console.log("got request!");
-  counter += 1;
-  res.status(201).json({
-    counter: counter,
-  });
-});
-
-app.post("/counter/decrement", (req, res) => {
-  console.log("got request!");
-  counter -= 1;
-  res.status(201).json({
-    counter: counter,
-  });
-});
-
-app.post("/counter/double", (req, res) => {
-  console.log("got request!");
-  counter = counter * 2;
-  res.status(201).json({
-    counter: counter,
-  });
-});
-
-app.put("/counter", (req, res) => {
-  let amount = req.query.amount;
-  counter = amount;
-  res.json({
-    counter: counter,
-  });
-});
+let counters = [
+  { counterName: "counterOne", counterAmount: 10 },
+  { counterName: "counterTwo", counterAmount: 0 },
+];
 
 app.get("/counter/:name", (req, res) => {
   let name = req.params.name;
+
+  const counter = counters.filter((counter) => {
+    if (counter.counterName === name) {
+      return counter;
+    }
+  })[0];
+
+  if (counter === undefined) {
+    counters.push({ counterName: name, counterAmount: 0 });
+
+    res.json({
+      counter: 0,
+    });
+
+    return;
+  }
+
   res.json({
-    counter: name,
+    counter: counter.counterAmount,
   });
 });
+
 module.exports = app;
