@@ -42,8 +42,8 @@ app.delete("/counter", (req, res) => {
 });
 
 app.put("/counter", (req, res) => {
-  counter = 0;
-  res.json({ counter: counter });
+  counter = req.query.value;
+  res.status(201).res.json({ counter: counter });
 });
 
 module.exports = app;
