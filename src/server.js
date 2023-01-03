@@ -7,7 +7,7 @@ const cors = require("cors");
 
 //Create a new express application
 const app = express();
-let counter = 1;
+let counter = 0;
 
 //Tell express we want to use the morgan library
 app.use(morgan("dev"));
@@ -25,13 +25,18 @@ app.delete("/counter", (req, res) => {
   res.json({ counter: counter });
 });
 
-app.post("/increment", (req, res) => {
+app.post("/counter/increment", (req, res) => {
   counter += 1;
-  res.json({ counter: counter });
+  res.status(201).json({ counter: counter });
 });
 
-app.post("/decrement", (req, res) => {
+app.post("/counter/decrement", (req, res) => {
   counter -= 1;
-  res.json({ counter: counter });
+  res.status(201).json({ counter: counter });
+});
+
+app.post("/counter/double", (req, res) => {
+  counter *= 2;
+  res.status(201).json({ counter: counter });
 });
 module.exports = app;
