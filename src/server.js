@@ -19,4 +19,14 @@ app.use(express.json());
 app.get("/counter", (req, res) => {
   res.json({ counter: counter });
 });
+
+app.delete("/counter", (req, res) => {
+  counter = 0;
+  res.json({ counter: counter });
+});
+
+app.post("/increment", (req, res) => {
+  counter += 1;
+  res.json({ counter: counter });
+});
 module.exports = app;
