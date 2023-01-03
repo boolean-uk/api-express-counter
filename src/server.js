@@ -7,6 +7,7 @@ const cors = require("cors");
 
 //Create a new express application
 const app = express();
+let counter = 1;
 
 //Tell express we want to use the morgan library
 app.use(morgan("dev"));
@@ -15,4 +16,7 @@ app.use(cors());
 //Tell express to parse JSON in the request body
 app.use(express.json());
 
+app.get("/counter", (req, res) => {
+  res.json({ counter: counter });
+});
 module.exports = app;
