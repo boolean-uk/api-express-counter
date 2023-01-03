@@ -43,5 +43,103 @@ app.get("/counter/:name", (req, res) => {
     counter: counter.counterAmount,
   });
 });
+app.delete("/counter/:name", (req, res) => {
+  let name = req.params.name;
 
+  const counter = counters.filter((counter) => {
+    if (counter.counterName === name) {
+      counter.counterAmount = 0;
+      return counter;
+    }
+  })[0];
+
+  if (counter === undefined) {
+    counters.push({ counterName: name, counterAmount: 0 });
+
+    res.json({
+      counter: 0,
+    });
+
+    return;
+  }
+
+  res.json({
+    counter: counter.counterAmount,
+  });
+});
+
+app.post("/counter/:name/increment", (req, res) => {
+  let name = req.params.name;
+
+  const counter = counters.filter((counter) => {
+    if (counter.counterName === name) {
+      counter.counterAmount += 1;
+      return counter;
+    }
+  })[0];
+
+  if (counter === undefined) {
+    counters.push({ counterName: name, counterAmount: 0 });
+
+    res.json({
+      counter: 0,
+    });
+
+    return;
+  }
+
+  res.json({
+    counter: counter.counterAmount,
+  });
+});
+
+app.post("/counter/:name/decrement", (req, res) => {
+  let name = req.params.name;
+
+  const counter = counters.filter((counter) => {
+    if (counter.counterName === name) {
+      counter.counterAmount -= 1;
+      return counter;
+    }
+  })[0];
+
+  if (counter === undefined) {
+    counters.push({ counterName: name, counterAmount: 0 });
+
+    res.json({
+      counter: 0,
+    });
+
+    return;
+  }
+
+  res.json({
+    counter: counter.counterAmount,
+  });
+});
+
+app.post("/counter/:name/double", (req, res) => {
+  let name = req.params.name;
+
+  const counter = counters.filter((counter) => {
+    if (counter.counterName === name) {
+      counter.counterAmount = counter.counterAmount * 2;
+      return counter;
+    }
+  })[0];
+
+  if (counter === undefined) {
+    counters.push({ counterName: name, counterAmount: 0 });
+
+    res.json({
+      counter: 0,
+    });
+
+    return;
+  }
+
+  res.json({
+    counter: counter.counterAmount,
+  });
+});
 module.exports = app;
