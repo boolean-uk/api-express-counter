@@ -4,6 +4,7 @@ const express = require("express");
 const morgan = require("morgan");
 //Include the cors middleware
 const cors = require("cors");
+const { application } = require("express");
 
 //Create a new express application
 const app = express();
@@ -38,5 +39,10 @@ app.post("/counter/decrement", (req, res) => {
 app.post("/counter/double", (req, res) => {
   counter *= 2;
   res.status(201).json({ counter: counter });
+});
+
+app.put("/counter", (req, res) => {
+  counter = req.query.value;
+  res.json({ counter: counter });
 });
 module.exports = app;
