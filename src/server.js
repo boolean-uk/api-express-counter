@@ -18,9 +18,8 @@ app.use(express.json());
 let counter = 0;
 
 const counters = [
-  { id: 1, value: 5 },
-  { id: 2, value: 7 },
-  { id: 3, value: 0 },
+  { name: "cars", value: 0 },
+  { name: "2", value: 0 },
 ];
 
 app.get("/counter", (req, res) => {
@@ -57,35 +56,42 @@ app.put(`/counter`, (req, res) => {
   res.status(201).json({ counter: counter });
 });
 
-app.get("/counter/:id", (req, res) => {
-  counter = counters.find((item) => item.id === Number(req.params.id));
+app.get("/counter/:name", (req, res) => {
+  counter = counters.find((item) => item.name === req.params.name);
 
-  res.json({ counter: counter.value });
+  res.status(200).json({ counter: counter.value });
 });
 
-app.delete("/counter/:id", (req, res) => {
-  counter = counters.find((item) => item.id === Number(req.params.id));
+app.delete("/counter/:name", (req, res) => {
+  counter = counters.find((item) => item.name === req.params.name);
   counter.value = 0;
 
   res.status(200).json({ counter: counter.value });
 });
 
-app.post("/counter/:id/increment", (req, res) => {
-  counter = counters.find((item) => item.id === Number(req.params.id));
+app.post("/counter/:name/increment", (req, res) => {
+  counter = counters.find((item) => item.name === req.params.name);
   counter.value++;
 
   res.status(201).json({ counter: counter.value });
 });
 
-app.post("/counter/:id/decrement", (req, res) => {
-  counter = counters.find((item) => item.id === Number(req.params.id));
+app.post("/counter/:name/decrement", (req, res) => {
+  counter = counters.find((item) => item.name === req.params.name);
   counter.value--;
 
   res.status(201).json({ counter: counter.value });
 });
 
-app.post("/counter/:id/double", (req, res) => {
-  counter = counters.find((item) => item.id === Number(req.params.id));
+app.put("/counter/:name", (req, res) => {
+  counter = counters.find((item) => item.name === req.params.name);
+  counter.value = Number(req.query.value);
+
+  res.status(201).json({ counter: counter.value });
+});
+
+app.post("/counter/:name/double", (req, res) => {
+  counter = counters.find((item) => item.name === req.params.name);
   counter.value = counter.value * 2;
 
   res.status(201).json({ counter: counter.value });
