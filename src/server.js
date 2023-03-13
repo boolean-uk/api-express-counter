@@ -53,44 +53,44 @@ app.put('/counter', (req, res) => {
 
 app.get('/counter/:id', (req, res) => {
     const id = req.params.id;
-    counter = counters.find((objs) => objs.id === id);
-    res.json({ counter: counter.value });
+    const targetCounter = counters.find((objs) => objs.id === id);
+    res.json({ counter: targetCounter.value });
 });
 
 app.put('/counter/:id', (req, res) => {
     const counterValue = Number(req.query.value);
     const id = req.params.id;
-    counter = counters.find((objs) => objs.id === id);
-    counter.value = counterValue;
-    res.status(201).json({ counter: counter.value });
+    const targetCounter = counters.find((objs) => objs.id === id);
+    targetCounter.value = counterValue;
+    res.status(201).json({ counter: targetCounter.value });
 });
 
 app.post('/counter/:id/increment', (req, res) => {
     const id = req.params.id;
-    counter = counters.find((objs) => objs.id === id);
-    counter.value++;
-    res.status(201).json({ counter: counter.value });
+    const targetCounter = counters.find((objs) => objs.id === id);
+    targetCounter.value++;
+    res.status(201).json({ counter: targetCounter.value });
 });
 
 app.post('/counter/:id/decrement', (req, res) => {
     const id = req.params.id;
-    counter = counters.find((objs) => objs.id === id);
-    counter.value--;
-    res.status(201).json({ counter: counter.value });
+    const targetCounter = counters.find((objs) => objs.id === id);
+    targetCounter.value--;
+    res.status(201).json({ counter: targetCounter.value });
 });
 
 app.post('/counter/:id/double', (req, res) => {
     const id = req.params.id;
-    counter = counters.find((objs) => objs.id === id);
-    counter.value = counter.value * 2;
-    res.status(201).json({ counter: counter.value });
+    const targetCounter = counters.find((objs) => objs.id === id);
+    targetCounter.value = targetCounter.value * 2;
+    res.status(201).json({ counter: targetCounter.value });
 });
 
 app.delete('/counter/:id/', (req, res) => {
     const id = req.params.id;
-    counter = counters.find((objs) => objs.id === id);
-    counter.value = 0;
-    res.json({ counter: counter.value });
+    const targetCounter = counters.find((objs) => objs.id === id);
+    targetCounter.value = 0;
+    res.json({ counter: targetCounter.value });
 });
 
 module.exports = app;
