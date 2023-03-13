@@ -40,4 +40,9 @@ app.post("/counter/double", (req, res) => {
   res.status(201).json({ counter: counter.counter });
 });
 
+app.put("/counter", (req, res) => {
+  counter.counter = Number(req.query.value);
+  res.status(201).json({ counter: counter.counter });
+});
+
 module.exports = app;
