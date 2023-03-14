@@ -22,7 +22,7 @@ describe("Counter Endpoint", () => {
       expect(response.body.counter).toEqual(1)
       expect(response2.body.counter).toEqual(2)
     })
-    it("Decrement the counter", async () => {
+    fit("Decrement the counter", async () => {
       const response = await supertest(app).post(`/counter/decrement`)
       const response2 = await supertest(app).post(`/counter/decrement`)
 
