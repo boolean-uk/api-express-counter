@@ -60,16 +60,34 @@ app.put('/counter', (req, res) => {
   return res.status(201).send(counter)
 })
 
+app.post('/counter/:name/increment', (req, res) => {
+  const { name } = req.params
+  const foundCounter = findInCounters(name)
+
+  if (foundCounter) {
+    foundCounter.counter++
+    return res.status(200).send(foundCounter)
+  } else {
+    return res.status(404).send(`Counter ${name} not found`)
+  }
+})
+
 app.get('/counter/:name', (req, res) => {
   const { name } = req.params
   const foundCounter = findInCounters(name)
 
-  console.log('foundCohorts', foundCounter)
-  console.log('name', name)
-
-
   if (foundCounter) {
-    console.log('found!')
+    return res.status(200).send(foundCounter)
+  } else {
+    return res.status(404).send(`Counter ${name} not found`)
+  }
+})
+
+app.delete('/counter/:name', (req, res) => {
+  const { name } = req.params
+  const foundCounter = findInCounters(name)
+  if (foundCounter) {
+    foundCounter.counter = 0
     return res.status(200).send(foundCounter)
   } else {
     return res.status(404).send(`Counter ${name} not found`)
