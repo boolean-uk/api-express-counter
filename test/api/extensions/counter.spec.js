@@ -18,7 +18,7 @@ describe("Counter Endpoint", () => {
       const response = await supertest(app).post(`/counter/cars/increment`)
       const response2 = await supertest(app).post(`/counter/cars/increment`)
 
-      expect(response.status).toEqual(201)
+      expect(response.status).toEqual(200)
       expect(response.body.counter).toEqual(1)
       expect(response2.body.counter).toEqual(2)
     })
@@ -26,7 +26,7 @@ describe("Counter Endpoint", () => {
       const response = await supertest(app).post(`/counter/cars/decrement`)
       const response2 = await supertest(app).post(`/counter/cars/decrement`)
 
-      expect(response.status).toEqual(201)
+      expect(response.status).toEqual(200)
       expect(response.body.counter).toEqual(-1)
       expect(response2.body.counter).toEqual(-2)
     })
@@ -35,7 +35,7 @@ describe("Counter Endpoint", () => {
       const response = await supertest(app).post(`/counter/cars/double`)
       const response2 = await supertest(app).post(`/counter/cars/double`)
 
-      expect(response.status).toEqual(201)
+      expect(response.status).toEqual(200)
       expect(response.body.counter).toEqual(4)
       expect(response2.body.counter).toEqual(8)
     })
@@ -45,7 +45,7 @@ describe("Counter Endpoint", () => {
       const response = await supertest(app).put(`/counter?value=100`)
       const response2 = await supertest(app).put(`/counter?value=200`)
 
-      expect(response.status).toEqual(201)
+      expect(response.status).toEqual(200)
       expect(response.body.counter).toEqual(100)
       expect(response2.body.counter).toEqual(200)
     })
