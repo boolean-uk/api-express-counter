@@ -20,6 +20,7 @@ const dataArr = [
   { name: "norik", counter: 0 },
   { name: "tom", counter: 0 },
   { name: "lee", counter: 0 },
+  { name: "cars", counter: 0 },
 ];
 
 const findName = (name) => {
