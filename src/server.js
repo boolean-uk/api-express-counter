@@ -40,9 +40,13 @@ app.post('/counter/double', (req, res) => {
   return res.status(201).send(counter)
 })
 
-app.put('/counter?value={number}', (req, res) => {
-  counter.counter = number
-  return res.send(counter)
+app.put('/counter', (req, res) => {
+  const value = Number(req.query.value)
+  // counter.counter = req.number
+  // return res.status(201).send(counter)
+  // const value = req.body.counter
+  counter.counter = value
+  return res.status(201).send(counter)
 })
 
 module.exports = app
