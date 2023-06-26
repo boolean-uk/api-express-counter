@@ -52,7 +52,7 @@ app.delete("/counter", (req, res) => {
 });
 
 app.put("/counter", (req, res) => {
-  const num = req.query.counter;
+  const num = req.query.value;
   data.counter = Number(num);
   return res.status(201).send({counter: data.counter});
 });
