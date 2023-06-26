@@ -38,7 +38,7 @@ app.post("/counter/decrement", (req, res) => {
 });
 
 app.post("/counter/double", (req, res) => {
-  counter = counter * 2;
+  counter *= 2;
   return res.status(201).send({ counter: counter });
 });
 
@@ -48,4 +48,35 @@ app.put("/counter", (req, res) => {
 
   return res.status(201).send({ counter });
 });
+
+app.get("/counter/:name", (req, res) => {
+    return res.send({ counter });
+})
+app.put("/counter/:name", (req, res) => {
+    const { value } = req.query;
+    counter = Number (value)
+  
+    return res.status(201).send({ counter });
+  });
+app.delete("/counter/:name", (req, res) => {
+    counter = 0;
+    return res.send({ counter: counter });
+})
+
+app.post("/counter/:name/increment", (req, res) => {
+    counter++;
+    return res.status(201).send({ counter: counter });
+  });
+app.post("/counter/:name/decrement", (req, res) => {
+    counter--;
+    return res.status(201).send({ counter: counter });
+  });
+
+  app.post("/counter/:name/double", (req, res) => {
+    counter = counter * 2;
+    return res.status(201).send({ counter: counter });
+  });
+  
+
+
 module.exports = app;
