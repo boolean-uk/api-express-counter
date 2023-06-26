@@ -7,7 +7,9 @@
     "doc": "docs"
   },
   "scripts": {
-    "start": "npx nodemon ./src/index.js"
+    "start": "npx nodemon src/index.js",
+    "test": "npx jest -i test/api/routes --forceExit",
+    "test-extensions": "npx jest -i test/api/extensions --forceExit"
   },
   "repository": {
     "type": "git",

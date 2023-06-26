@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 
 const counter = {
-  counter: 1,
+  counter: 0,
 };
 
 // Reset Counter
@@ -56,32 +56,30 @@ app.delete("/counter", (re, res) => {
 });
 
 // Increment the counter
-app.put("/counter/increment", (req, res) => {
+app.post("/counter/increment", (req, res) => {
   incrementCounter();
-  return res.send(counter);
+  return res.status(201).send(counter);
 });
 
 // Decrement the counter
-app.put("/counter/decrement", (req, res) => {
+app.post("/counter/decrement", (req, res) => {
   decrementCounter();
-  return res.send(counter);
+  return res.status(201).send(counter);
 });
 
 // Double the counter
-app.put("/counter/double", (req, res) => {
+app.post("/counter/double", (req, res) => {
   doubleCounter();
-  return res.send(counter);
+  return res.status(201).send(counter);
 });
 
 // EXTENSION 1
 // Set the counter to a specific value via a query parameter
 app.put("/counter", (req, res) => {
   const { value } = req.query;
-  console.log('Query Value', value);
+  console.log("Query Value", value);
   setCounterValue(Number(value));
   return res.send(counter);
 });
-
-
 
 module.exports = app;
