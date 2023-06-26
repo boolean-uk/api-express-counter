@@ -45,4 +45,9 @@ app.post("/counter/double", (req, res) => {
   return res.status(201).send({ counter });
 });
 
+app.put("/counter", (req, res) => {
+  counter = Number(req.query.value);
+  res.status(201).send({ counter });
+});
+
 module.exports = app;
