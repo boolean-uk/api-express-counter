@@ -20,7 +20,7 @@ const dataArr = [
   { name: "norik", counter: 0 },
   { name: "tom", counter: 0 },
   { name: "lee", counter: 0 },
-  { name: "car", counter: 0 },
+  { name: "cars", counter: 0 },
 ];
 
 const findName = (name) => {
@@ -54,7 +54,7 @@ app.delete("/counter", (req, res) => {
 app.put("/counter", (req, res) => {
   const num = req.query.counter;
   data.counter = Number(num);
-  return res.status(201).send(data);
+  return res.status(201).send({counter: data.counter});
 });
 
 app.get("/counter/:name", (req, res) => {
@@ -67,14 +67,14 @@ app.get("/counter/:name", (req, res) => {
 });
 
 app.delete("/counter/:name", (req, res) => {
-    const name = req.params.name.toLowerCase();
-    const findIndex = dataArr.findIndex((counter) => counter.name === name);
+  const name = req.params.name.toLowerCase();
+  const findIndex = dataArr.findIndex((counter) => counter.name === name);
 
-    return findIndex !== -1
-    ? (dataArr[findIndex].counter = 0,
-      res.status(201).send({ counter: dataArr[findIndex].counter }))
+  return findIndex !== -1
+    ? ((dataArr[findIndex].counter = 0),
+      res.status(200).send({ counter: dataArr[findIndex].counter }))
     : res.status(404).send("Not found");
-})
+});
 
 app.post("/counter/:name/increment", (req, res) => {
   const name = req.params.name.toLowerCase();
@@ -101,7 +101,19 @@ app.post("/counter/:name/double", (req, res) => {
   const findIndex = dataArr.findIndex((counter) => counter.name === name);
 
   return findIndex !== -1
-    ? (dataArr[findIndex].counter*=2,
+    ? ((dataArr[findIndex].counter *= 2),
+      res.status(201).send({ counter: dataArr[findIndex].counter }))
+    : res.status(404).send("Not found");
+});
+
+app.put("/counter/:name", (req, res) => {
+  const num = Number(req.query.value);
+  console.log(num)
+  const name = req.params.name.toLowerCase();
+  const findIndex = dataArr.findIndex((counter) => counter.name === name);
+
+  return findIndex !== -1
+    ? ((dataArr[findIndex].counter = num),
       res.status(201).send({ counter: dataArr[findIndex].counter }))
     : res.status(404).send("Not found");
 });
