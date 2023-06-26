@@ -15,7 +15,18 @@ app.use(cors())
 // Tell express to parse JSON in the request body
 app.use(express.json())
 
-const counter = { counter: 0 }
+const counter = { 
+  counter: 0
+}
+
+const counters = [
+  {name: 'cars', counter: 0}
+]
+
+const findInCounters = (name) => {
+  return counters.find(item => item.name === name)
+}
+
 app.get('/counter', (req, res) => {
   return res.send(counter)
 })
@@ -47,6 +58,22 @@ app.put('/counter', (req, res) => {
   // const value = req.body.counter
   counter.counter = value
   return res.status(201).send(counter)
+})
+
+app.get('/counter/:name', (req, res) => {
+  const { name } = req.params
+  const foundCounter = findInCounters(name)
+
+  console.log('foundCohorts', foundCounter)
+  console.log('name', name)
+
+
+  if (foundCounter) {
+    console.log('found!')
+    return res.status(200).send(foundCounter)
+  } else {
+    return res.status(404).send(`Counter ${name} not found`)
+  }
 })
 
 module.exports = app
