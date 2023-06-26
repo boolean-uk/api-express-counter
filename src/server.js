@@ -15,7 +15,7 @@ app.use(cors())
 // Tell express to parse JSON in the request body
 app.use(express.json())
 
-const counter = { counter: 1 }
+const counter = { counter: 0 }
 app.get('/counter', (req, res) => {
   return res.send(counter)
 })
@@ -27,16 +27,22 @@ app.delete('/counter', (req, res) => {
 
 app.post('/counter/increment', (req, res) => {
   counter.counter += 1
-  return res.send(counter)
+  return res.status(201).send(counter)
 })
 
 app.post('/counter/decrement', (req, res) => {
   counter.counter -= 1
-  return res.send(counter)
+  return res.status(201).send(counter)
 })
 
 app.post('/counter/double', (req, res) => {
   counter.counter *= 2
+  return res.status(201).send(counter)
+})
+
+app.put('/counter?value={number}', (req, res) => {
+  counter.counter = number
   return res.send(counter)
 })
+
 module.exports = app
