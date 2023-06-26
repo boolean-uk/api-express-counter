@@ -15,71 +15,136 @@ app.use(cors());
 //Tell express to parse JSON in the request body
 app.use(express.json());
 
-const counter = {
+// CORE
+const core = {
   counter: 0,
-};
-
-// Reset Counter
-const resetCounter = () => {
-  return (counter.counter = 0);
-};
-
-// Increment Counter
-const incrementCounter = () => {
-  return counter.counter++;
-};
-
-// Decrement Counter
-const decrementCounter = () => {
-  return counter.counter--;
-};
-
-// Double Counter
-const doubleCounter = () => {
-  return (counter.counter *= 2);
 };
 
 // Set counter to specific value
 const setCounterValue = (value) => {
-  return (counter.counter = value);
+  return (core.counter = value);
 };
 
 // 1. Retrieve the current counter
 app.get("/counter", (req, res) => {
-  return res.send(counter);
+  return res.send(core);
 });
 
 // 2. Reset counter to 0
 app.delete("/counter", (re, res) => {
-  resetCounter();
-  return res.send(counter);
+  core.counter = 0;
+  return res.send(core);
 });
 
-// Increment the counter
+// 3. Increment the counter
 app.post("/counter/increment", (req, res) => {
-  incrementCounter();
-  return res.status(201).send(counter);
+  core.counter++;
+  return res.status(201).send(core);
 });
 
-// Decrement the counter
+// 4. Decrement the counter
 app.post("/counter/decrement", (req, res) => {
-  decrementCounter();
-  return res.status(201).send(counter);
+  core.counter--;
+  return res.status(201).send(core);
 });
 
-// Double the counter
+// 5. Double the counter
 app.post("/counter/double", (req, res) => {
-  doubleCounter();
-  return res.status(201).send(counter);
+  core.counter *= 2;
+  return res.status(201).send(core);
 });
 
 // EXTENSION 1
-// Set the counter to a specific value via a query parameter
+const extension = [
+  {
+    name: "cars",
+    counter: 0,
+  },
+  {
+    name: "bicycles",
+    counter: 0,
+  },
+];
+
+const findCounterByName = (name) => {
+  return extension.find((item) => item.name === name);
+};
+
+// 6. Set the counter to a specific value via a query parameter
 app.put("/counter", (req, res) => {
   const { value } = req.query;
-  console.log("Query Value", value);
   setCounterValue(Number(value));
-  return res.send(counter);
+  return res.status(201).send(core);
+  // return res.status(201).send({ counter: core.counter });
+});
+
+// Retrieve the current counter for the provided counter name
+app.get("/counter/:name", (req, res) => {
+  const { name } = req.params;
+  const result = findCounterByName(name);
+  return res.send({ counter: result.counter });
+});
+
+// Reset the counter for the provided name to 0
+app.delete("/counter/:name", (req, res) => {
+  const { name } = req.params;
+  const result = findCounterByName(name);
+
+  if (result) {
+    result.counter = 0;
+    return res.send({ counter: result.counter });
+  } else {
+    return res.status(404).send("Data not found");
+  }
+});
+
+// Increment the counter for the provided name
+app.post("/counter/:name/increment", (req, res) => {
+  const { name } = req.params;
+  const result = findCounterByName(name);
+
+  if (result) {
+    result.counter++;
+    return res.status(201).send({ counter: result.counter });
+  } else {
+    return res.status(404).send("Data not found");
+  }
+});
+
+// Decrement the counter for the provided name
+app.post("/counter/:name/decrement", (req, res) => {
+  const { name } = req.params;
+  const result = findCounterByName(name);
+
+  if (result) {
+    result.counter--;
+    return res.status(201).send({ counter: result.counter });
+  } else {
+    return res.status(404).send("Data not found");
+  }
+});
+
+// Double the counter for the provided name
+app.post("/counter/:name/double", (req, res) => {
+  const { name } = req.params;
+  const result = findCounterByName(name);
+
+  if (result) {
+    result.counter *= 2;
+    return res.status(201).send({ counter: result.counter });
+  } else {
+    return res.status(404).send("Data not found");
+  }
+});
+
+app.put("/counter/:name", (req, res) => {
+  const { value } = req.query;
+  const { name } = req.params;
+
+  const result = findCounterByName(name);
+  result.counter = value;
+
+  return res.send({ counter: result.counter });
 });
 
 module.exports = app;
