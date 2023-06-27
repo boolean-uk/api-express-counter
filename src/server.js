@@ -49,7 +49,7 @@ app.delete('/counter', (req, res) => {
 app.put('/counter', (req, res) => {
     const value = req.query
 
-    counter = value
+    counter = value.value
 
     res.status(201).send({ counter })
 })
