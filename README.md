@@ -91,7 +91,7 @@ module.exports = app
 
 ```json
 "scripts": {
-   "start" : "npx nodemon ./src/index.js"
+   "start" : "npx nodemon ./src/index.js" //"start": "npx nodemon src/index.js",
 },
 ```
 
