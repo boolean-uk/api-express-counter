@@ -36,4 +36,9 @@ app.post("/counter/decrement", (req, res) => {
   res.status(201).json({ counter: counter });
 });
 
+app.post('/counter/double', (req, res) => {
+  counter = counter * 2;
+  res.status(201).json({ counter: counter})
+})
+
 module.exports = app;
