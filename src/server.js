@@ -52,4 +52,12 @@ app.post("/counter/double", (req, res) => {
   res.status(201).json({ counter: count });
 });
 
+// Express route handling for resetting the counter
+app.delete("/counter", (req, res) => {
+  // Reset the counter to zero
+  count = 0;
+  // Respond with the reset counter value
+  res.status(200).json({ counter: count });
+});
+
 module.exports = app;
