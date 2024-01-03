@@ -17,19 +17,23 @@ app.use(express.json());
 let counter = 0;
 
 // GET request to the localhost:3030/ "root" path
-app.get('/', (req, res) => {
-    res.status(201).json({ message: 'Welcome to the counter!!' })
-  })
+app.get("/", (req, res) => {
+  res.status(201).json({ message: "Welcome to the counter!!" });
+});
 
 // Get request
 app.get("/counter", (req, res) => {
-    res.json({counter: counter})
-  });
+  res.json({ counter: counter });
+});
 
-  app.post('/counter/increment', (req, res) => {
-    counter++
-    res.status(201).json ({ counter: counter })
-})
+app.post("/counter/increment", (req, res) => {
+  counter++;
+  res.status(201).json({ counter: counter });
+});
 
+app.post("/counter/decrement", (req, res) => {
+  counter -= 1; // decrement the counter
+  res.status(201).json({ counter: counter });
+});
 
 module.exports = app;
