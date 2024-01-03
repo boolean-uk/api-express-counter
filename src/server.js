@@ -29,4 +29,12 @@ app.get("/counter", (req, res) => {
   res.json({ counter: count });
 });
 
+// Express route handling for incrementing the counter
+app.post("/counter/increment", (req, res) => {
+  // Increment the counter
+  count++;
+  // Respond with the updated counter value
+  res.status(201).json({ counter: count });
+});
+
 module.exports = app;
