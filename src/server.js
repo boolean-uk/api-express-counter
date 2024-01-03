@@ -17,6 +17,7 @@ app.use(express.json())
 
 let count = 0
 
+// get
 app.get('/', (req , res) => {
 res.status(201).json({message:'counter API'})
 })
@@ -25,6 +26,8 @@ res.status(201).json({message:'counter API'})
     console.log(count)
     return res.status(201).json({'counter': count})
 })*/
+
+
 app.get("/counter", (req, res) => {
     const counter = {
       counter: count,
@@ -32,5 +35,14 @@ app.get("/counter", (req, res) => {
   
     res.status(200).json(counter);
   });
+
+
+  // delete
+  app.delete("/counter", (req , res) => {
+    count = 0
+    return res.json({"counter":count})
+  })
+
+
 
 module.exports = app
