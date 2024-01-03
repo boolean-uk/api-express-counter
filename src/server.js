@@ -90,4 +90,13 @@ app.post('/counter/:name/increment', (req, res, next) => {
   res.status(201).json({ counter: ++state[counterName] })
 })
 
+// POST decrement the counter for the provided name
+app.post('/counter/:name/decrement', (req, res, next) => {
+  const counterName = req.params.name
+
+  checkCounterName(counterName)
+
+  res.status(201).json({ counter: --state[counterName] })
+})
+
 module.exports = app
