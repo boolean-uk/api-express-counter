@@ -95,4 +95,12 @@ app.get("/counter/:name", (req, res) => {
   res.json({ counter: namedCounter });
 });
 
+app.post("/counter/:name/increment", (req, res) => {
+  const [name, namedCounter] = evalCounter(req);
+
+  STATE[name] = namedCounter + 1
+
+  res.status(201).json({ counter: STATE[name] })
+});
+
 module.exports = app;
