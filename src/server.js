@@ -20,6 +20,15 @@ const state = {
   counter: 0
 }
 
+// Global functions
+const checkCounterName = (counterName) => {
+  if (!state[counterName]) {
+    return (state[counterName] = 0)
+  }
+
+  return state[counterName]
+}
+
 // GET counter
 app.get('/counter', (req, res, next) => {
   res.status(200).json({ counter: state.counter })
@@ -56,11 +65,11 @@ app.put('/counter', (req, res, next) => {
 
 // GET retrieve the current counter for the provided counter name
 app.get('/counter/:name', (req, res, next) => {
-  if (!state[req.params.name]) {
-    state[req.params.name] = 0
-  }
+  const counter = checkCounterName(req.params.name)
 
-  res.status(200).json({ counter: state[req.params.name] })
+  res.status(200).json({ counter })
 })
+
+//
 
 module.exports = app
