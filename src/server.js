@@ -29,8 +29,11 @@ app.post('/counter/increment', (req, res) => {
 
 app.post('/counter/decrement', (req, res) => {
     state.counter--
+    if(state.counter < 0) return state.counter = 0
     res.status(201).json(state)
 })
+
+
 
 
 
