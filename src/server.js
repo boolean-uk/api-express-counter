@@ -17,18 +17,18 @@ app.use(express.json());
 
 /**
  * A function that multiplies a number by 2 using a while loop.
- * 
+ *
  * @param {number} num - The number to be multiplied by 2.
  * @returns {number} The result of the multiplication.
  * @throws {Error} Throws an error if the input is not a valid number.
  */
 function multiplyByTwoWithWhileLoop(num) {
-  if (typeof num !== 'number') {
-    throw new Error('input should be a number');
+  if (typeof num !== "number") {
+    throw new Error("input should be a number");
   }
 
   if (isNaN(num)) {
-    throw new Error('input should not be Not a Number');
+    throw new Error("input should not be Not a Number");
   }
 
   let count = 0;
@@ -63,6 +63,11 @@ app.post("/counter/decrement", (req, res) => {
 
 app.post("/counter/double", (req, res) => {
   COUNTER = multiplyByTwoWithWhileLoop(COUNTER);
+  res.status(201).json({ counter: COUNTER });
+});
+
+app.put("/counter", (req, res) => {
+  COUNTER = Number(req.query.value);
   res.status(201).json({ counter: COUNTER });
 });
 
