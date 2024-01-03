@@ -14,5 +14,13 @@ app.use(morgan("dev"));
 app.use(cors());
 //Tell express to parse JSON in the request body
 app.use(express.json());
+// Initialize counter variable
+let count = 0;
+
+// Express route handling for root path
+app.get("/", (req, res) => {
+  // Respond with a welcome message
+  res.status(201).json({ message: "Welcome to the counter app" });
+});
 
 module.exports = app;
