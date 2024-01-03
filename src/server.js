@@ -111,4 +111,12 @@ app.post("/counter/:name/increment", (req, res) => {
   res.status(201).json({ counter: STATE[name] });
 });
 
+app.post("/counter/:name/decrement", (req, res) => {
+  const name = evalCounter(req);
+
+  STATE[name] = STATE[name] - 1;
+
+  res.status(201).json({ counter: STATE[name] });
+});
+
 module.exports = app;
