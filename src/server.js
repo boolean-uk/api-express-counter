@@ -42,4 +42,10 @@ app.post('/counter/double', (req, res) => {
     counter = counter * 2;
     res.status(201).json({ counter: counter });
 });
+
+app.delete('/counter', (req, res) => {
+    counter = 0;
+    res.status(200).json({ counter: counter });
+});
+
 module.exports = app;
