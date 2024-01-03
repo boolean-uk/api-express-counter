@@ -15,7 +15,6 @@ const state = {
   counter: 0,
 };
 
-// Get request
 app.get("/counter", (req, res) => {
   res.status(200).json(state);
 });
@@ -26,12 +25,18 @@ app.post("/counter/increment", (req, res) => {
 });
 
 app.post("/counter/decrement", (req, res) => {
-  if (state.counter < 1) {
-    state.counter = 0;
-    return res.status(201).json(state);
-  }
   state.counter--;
   res.status(201).json(state);
+});
+
+app.post("/counter/double", (req, res) => {
+  state.counter *= 2;
+  res.status(201).json(state);
+});
+
+app.delete("/counter", (req, res) => {
+  state.counter = 0;
+  res.status(200).json(state);
 });
 
 module.exports = app;
