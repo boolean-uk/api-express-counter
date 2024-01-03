@@ -54,14 +54,33 @@ const setCount = (name, amount) => {
 
 addCounter('default')
 
-app.get('/counter/', (req, res) => {
+app.get('/counter', (req, res) => {
   const counter = checkCounterValue()
   res.json({ counter })
+})
+
+app.get('/counter/:name', (req, res) => {
+  const { name } = req.params
+  if ( counterExists(name) === false ) {
+    addCounter( name )
+  }
+  const counter = checkCounterValue(name)
+  res.json({ counter, name })
 })
 
 app.post('/counter/increment', (req, res) => {
   changeCount('', 1)
   const counter = checkCounterValue()
+  res.status(201).json({ counter })
+})
+
+app.post('/counter/:name/increment', (req, res) => {
+  const { name } = req.params
+  if ( counterExists(name) === false ) {
+    addCounter( name )
+  }
+  changeCount(name, 1)
+  const counter = checkCounterValue(name)
   res.status(201).json({ counter })
 })
 
@@ -71,9 +90,30 @@ app.post('/counter/decrement', (req, res) => {
   res.status(201).json({ counter })
 })
 
+app.post('/counter/:name/decrement', (req, res) => {
+  const { name } = req.params
+  if ( counterExists(name) === false ) {
+    addCounter( name )
+  }
+  changeCount(name, -1)
+  const counter = checkCounterValue(name)
+  res.status(201).json({ counter })
+})
+
 app.post('/counter/double', (req, res) => {
   setCount('', checkCounterValue() * 2)
   const counter = checkCounterValue()
+  res.status(201).json({ counter })
+})
+
+app.post('/counter/:name/double', (req, res) => {
+  // still fails because query setting value is not implemented yet
+  const { name } = req.params
+  if ( counterExists(name) === false ) {
+    addCounter( name )
+  }
+  setCount(name, checkCounterValue(name) * 2)
+  const counter = checkCounterValue(name)
   res.status(201).json({ counter })
 })
 
@@ -82,5 +122,16 @@ app.delete('/counter', (req, res) => {
   const counter = checkCounterValue()
   res.json({ counter })
 })
+
+app.delete('/counter/:name', (req, res) => {
+  const { name } = req.params
+  if ( counterExists(name) === false ) {
+    addCounter( name )
+  }
+  setCount(name, 0)
+  const counter = checkCounterValue(name)
+  res.json({ counter })
+})
+
 
 module.exports = app
