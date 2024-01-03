@@ -19,6 +19,11 @@ app.get('/counter', (req, res)=>{
 res.status(200).json(initailState)
 })
 
+app.post('/counter/increment', (req, res)=>{
+    initailState.counter ++
+    res.status(201).json(initailState)
+})
+
 
 module.exports = app
 
