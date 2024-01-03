@@ -27,26 +27,23 @@ app.get('/counter/', (req, res) => {
 //   res.json({ counter })
 // })
 
-app.post('/counter/:increment', (req, res) => {
-  const { increment } = req.params
-  counter +=  Number(increment)
-  res.json({ counter })
+app.post('/counter/increment', (req, res) => {
+  counter++
+  res.status(201).json({ counter })
 })
 
-app.post('/counter/:decrement', (req, res) => {
-  const { increment } = req.params
-  counter -=  Number(increment)
-  res.json({ counter })
+app.post('/counter/decrement', (req, res) => {
+  counter--
+  res.status(201).json({ counter })
 })
 
 app.post('/counter/double', (req, res) => {
   console.log(counter)
   counter *= 2
-  console.log(counter)
-  res.json({ counter })
+  res.status(201).json({ counter })
 })
 
-app.delete('/counter/', (req, res) => {
+app.delete('/counter', (req, res) => {
   counter = 0
   res.json({ counter })
 })
