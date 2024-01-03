@@ -8,8 +8,8 @@ app.use(morgan("dev"))
 app.use(cors())
 app.use(express.json())
 
-app.get("/", (req,res) => {
-    res.json({ message: "hello world" })
-})
+const state = {
+    "counter": 0
+}
 
 module.exports = app
