@@ -75,6 +75,17 @@ app.put('/counter', (req, res) => {
   res.status(201).json({ counter })
 })
 
+app.put('/counter/:name', (req, res) => {
+  const { value } = req.query
+  const { name } = req.params
+  if ( counterExists(name) === false ) {
+    addCounter( name )
+  }
+  setCount(name, Number(value))
+  const counter = checkCounterValue(name)
+  res.status(201).json({ counter })
+})
+
 app.post('/counter/increment', (req, res) => {
   changeCount('', 1)
   const counter = checkCounterValue()
