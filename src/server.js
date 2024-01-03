@@ -33,4 +33,12 @@ app.post('/counter/double', (req, res) =>{
     return res.status(201).json({"counter": count})
 })
 
+app.put('/counter',  (req, res) => {
+    const newCount = parseInt(req.query.value)
+    if (!newCount) return res.status(200).json({"counter": count})
+    
+    count = newCount
+    return res.status(201).json({"counter": count})
+})
+
 module.exports = app

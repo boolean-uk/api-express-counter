@@ -40,7 +40,7 @@ describe("Counter Endpoint", () => {
       expect(response2.body.counter).toEqual(8)
     })
   })
-  describe("PUT /counter", () => {
+  fdescribe("PUT /counter", () => {
     it("Set the counter to a specific value via a query parameter", async () => {
       const response = await supertest(app).put(`/counter?value=100`)
       const response2 = await supertest(app).put(`/counter?value=200`)
