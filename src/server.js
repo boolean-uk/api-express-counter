@@ -22,6 +22,11 @@ app.delete('/counter', (req, res) => {
     res.json(state)
 })
 
+app.post('/counter/increment', (req, res) => {
+    state.counter++
+    res.json(state)
+})
+
 
 
 module.exports = app
