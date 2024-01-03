@@ -39,4 +39,11 @@ app.delete("/counter", (req, res) => {
   res.status(200).json(state);
 });
 
+// Extension 1
+app.put(`/counter`, (req, res) => {
+  const newValue = Number(req.query.value);
+  state.counter = newValue;
+  res.status(201).json(state);
+});
+
 module.exports = app;
