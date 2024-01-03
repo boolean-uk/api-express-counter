@@ -18,6 +18,11 @@ app.post("/counter/increment", (req, res) => {
   res.status(201).json({ counter: counter });
 });
 
+app.post("/counter/decrement", (req, res) => {
+  counter--;
+  res.status(201).json({ counter: counter });
+});
+
 app.use(morgan("dev"));
 
 app.use(cors());
