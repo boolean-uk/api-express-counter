@@ -30,4 +30,16 @@ app.post('/counter/increment', (req, res) => {
     counter += 1; // increment the counter
     res.status(201).json({ counter: counter });
 });
+
+// POST route to decrement the counter
+app.post('/counter/decrement', (req, res) => {
+    counter -= 1; // decrement the counter
+    res.status(201).json({ counter: counter });
+});
+
+// POST route to double the counter
+app.post('/counter/double', (req, res) => {
+    counter = counter * 2;
+    res.status(201).json({ counter: counter });
+});
 module.exports = app;
