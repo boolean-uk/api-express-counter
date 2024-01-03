@@ -12,8 +12,17 @@ const state = {
     "counter": 0
 }
 
-app.get("/counter", (req,res) => {
-    res.status(200).json(state)
+// GET
+app.get("/counter", (req, res) => {
+    return res.status(200).json(state)
+})
+
+// POST - INCREMENT
+app.post("/counter/increment", (req, res) => {
+
+    state.counter ++
+
+    return res.status(201).json(state)
 })
 
 module.exports = app
