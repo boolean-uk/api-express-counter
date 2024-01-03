@@ -36,5 +36,12 @@ app.post("/counter/increment", (req, res) => {
   // Respond with the updated counter value
   res.status(201).json({ counter: count });
 });
+// Express route handling for decrementing the counter
+app.post("/counter/decrement", (req, res) => {
+  // Decrement the counter
+  count -= 1;
+  // Respond with the updated counter value
+  res.status(201).json({ counter: count });
+});
 
 module.exports = app;
