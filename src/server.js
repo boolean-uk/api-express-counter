@@ -22,7 +22,16 @@ app.get("/counter", (req, res) => {
 
 app.post("/counter/increment", (req, res) => {
   state.counter++;
-  res.status(201).json(state)
+  res.status(201).json(state);
+});
+
+app.post("/counter/decrement", (req, res) => {
+  if (state.counter < 1) {
+    state.counter = 0;
+    return res.status(201).json(state);
+  }
+  state.counter--;
+  res.status(201).json(state);
 });
 
 module.exports = app;

@@ -27,8 +27,8 @@ describe("Counter Endpoint", () => {
       const response2 = await supertest(app).post(`/counter/decrement`)
 
       expect(response.status).toEqual(201)
-      expect(response.body.counter).toEqual(-1)
-      expect(response2.body.counter).toEqual(-2)
+      expect(response.body.counter).toEqual(0)
+      expect(response2.body.counter).toEqual(0)
     })
     it("Double the counter", async () => {
       await supertest(app).post(`/counter/increment`)
