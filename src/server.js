@@ -15,6 +15,35 @@ app.use(cors());
 //Tell express to parse JSON in the request body
 app.use(express.json());
 
+/**
+ * A function that multiplies a number by 2 using a while loop.
+ * 
+ * @param {number} num - The number to be multiplied by 2.
+ * @returns {number} The result of the multiplication.
+ * @throws {Error} Throws an error if the input is not a valid number.
+ */
+function multiplyByTwoWithWhileLoop(num) {
+  if (typeof num !== 'number') {
+    throw new Error('input should be a number');
+  }
+
+  if (isNaN(num)) {
+    throw new Error('input should not be Not a Number');
+  }
+
+  let count = 0;
+  let result = 0;
+
+  while (count < num) {
+    result += 2;
+    count++;
+  }
+
+  return result;
+}
+
+let COUNTER = 0;
+
 app.get("/counter", (req, res) => {
   res.json({ counter: COUNTER });
 });
@@ -32,5 +61,9 @@ app.post("/counter/decrement", (req, res) => {
   res.status(201).json({ counter: --COUNTER });
 });
 
+app.post("/counter/double", (req, res) => {
+  COUNTER = multiplyByTwoWithWhileLoop(COUNTER);
+  res.status(201).json({ counter: COUNTER });
+});
 
 module.exports = app;
