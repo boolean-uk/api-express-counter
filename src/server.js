@@ -15,4 +15,10 @@ app.use(cors())
 //Tell express to parse JSON in the request body
 app.use(express.json())
 
+let COUNTER = 0
+
+app.get("/counter", (req, res) => {
+  res.json({counter: COUNTER})
+})
+
 module.exports = app
