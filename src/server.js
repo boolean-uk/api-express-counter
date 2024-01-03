@@ -42,6 +42,22 @@ function multiplyByTwoWithWhileLoop(num) {
   return result;
 }
 
+/**
+ * A function that returns the value of the named counter.
+ *
+ * @param { import('express').Request } req - Express request object
+ * @returns { number } Returns 0 if named counter does not yet exist, adds named counter to State.
+ */
+function evalCounter(req) {
+  const { name } = req.params;
+
+  if (STATE[name] === undefined) {
+    STATE[name] = 0;
+  }
+
+  return STATE[name];
+}
+
 let COUNTER = 0;
 
 const STATE = {};
@@ -74,13 +90,9 @@ app.put("/counter", (req, res) => {
 });
 
 app.get("/counter/:name", (req, res) => {
-  const { name } = req.params;
+  const namedCounter = evalCounter(req);
 
-  if (STATE[name] === undefined) {
-    STATE[name] = 0;
-  }
-
-  res.json({counter: STATE[name]})
+  res.json({ counter: namedCounter });
 });
 
 module.exports = app;
