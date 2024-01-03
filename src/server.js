@@ -43,9 +43,15 @@ app.get("/counter", (req, res) => {
     return res.json({"counter":count})
   })
 
- // post
+ // post increment
  app.post("/counter/increment", (req , res) => {
     count++
+    return res.status(201).json({"counter":count})
+ })
+
+ //post decrement
+ app.post("/counter/decrement", (req , res) => {
+    count--
     return res.status(201).json({"counter":count})
  })
 
