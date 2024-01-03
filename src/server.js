@@ -65,7 +65,14 @@ app.get('/counter/:name', (req, res) => {
     addCounter( name )
   }
   const counter = checkCounterValue(name)
-  res.json({ counter, name })
+  res.json({ counter })
+})
+
+app.put('/counter', (req, res) => {
+  const { value } = req.route.query
+  setCount('', Number(value))
+  const counter = checkCounterValue()
+  res.status(201).json({ counter })
 })
 
 app.post('/counter/increment', (req, res) => {
