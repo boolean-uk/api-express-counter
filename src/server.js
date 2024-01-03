@@ -8,11 +8,19 @@ const cors = require("cors")
 //Create a new express application
 const app = express()
 
+
 //Tell express we want to use the morgan library
 app.use(morgan("dev"))
 //Tell express we want to use the cors library
 app.use(cors())
 //Tell express to parse JSON in the request body
 app.use(express.json())
+const state = {
+    "counter": 0
+}
+app.get('/counter',(req, res )=> {
+    res.status(200).json(state)
+    
+})
 
 module.exports = app
