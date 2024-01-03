@@ -62,4 +62,14 @@ app.post("/counter/double", (req, res) => {
   res.status(201).json(counter);
 });
 
+app.put("/counter", (req, res) => {
+  const query = req.query;
+
+  const counter = {
+    counter: query.value,
+  };
+
+  res.status(201).json(counter);
+});
+
 module.exports = app;
