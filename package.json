@@ -8,7 +8,8 @@
     "test": "test"
   },
   "scripts": {
-    "start": "npx nodemon src/index.js",
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js",
     "test": "npx jest -i test/api/routes --forceExit",
     "test-extensions": "npx jest -i test/api/extensions  --forceExit"
   },
