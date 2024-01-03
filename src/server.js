@@ -127,4 +127,13 @@ app.put("/counter/:name", (req, res) => {
   res.status(201).json({ counter: STATE[name] });
 });
 
+app.post("/counter/:name/double", (req, res) => {
+  const name = evalCounter(req);
+  console.log('STATE[name]', STATE[name])
+  STATE[name] = multiplyByTwoWithWhileLoop(STATE[name]);
+  console.log('STATE[name]', STATE[name])
+
+  res.status(201).json({ counter: STATE[name] });
+});
+
 module.exports = app;
