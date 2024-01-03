@@ -48,4 +48,20 @@ app.post("/counter/double", (req, res) => {
     return res.status(201).json(state)
 })
 
+// EXTENSION 1
+
+app.put("/counter?", (req, res) => {
+
+    const val = Number(req.query.value)
+    const currentCount = state.counter
+
+    if (val && typeof val === 'number')
+        state.counter = val
+    else {
+        state.counter = currentCount
+    }
+
+    return res.status(201).json(state)
+})
+
 module.exports = app
