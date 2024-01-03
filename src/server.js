@@ -25,4 +25,9 @@ app.get('/counter', (req, res) => {
     res.json({ counter: counter })
 });
 
+// POST route to increment the counter
+app.post('/counter/increment', (req, res) => {
+    counter += 1; // increment the counter
+    res.status(201).json({ counter: counter });
+});
 module.exports = app;
