@@ -43,6 +43,10 @@ app.get("/counter", (req, res) => {
     return res.json({"counter":count})
   })
 
-
+ // post
+ app.post("/counter/increment", (req , res) => {
+    count++
+    return res.status(201).json({"counter":count})
+ })
 
 module.exports = app
