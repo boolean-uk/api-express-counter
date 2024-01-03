@@ -72,9 +72,22 @@ app.get('/counter/:name', (req, res, next) => {
 
 // DELETE reset the counter for the provided name to 0
 app.delete('/counter/:name', (req, res, next) => {
-  const counterName = checkCounterName(req.params.name)
+  const counterName = req.params.name
 
-  res.status(200).json({ counter: (counterName = 0) })
+  checkCounterName(counterName)
+
+  state[counterName] = 0
+
+  res.status(200).json({ counter: state[counterName] })
+})
+
+// POST increment the counter for the provided name
+app.post('/counter/:name/increment', (req, res, next) => {
+  const counterName = req.params.name
+
+  checkCounterName(counterName)
+
+  res.status(201).json({ counter: ++state[counterName] })
 })
 
 module.exports = app
