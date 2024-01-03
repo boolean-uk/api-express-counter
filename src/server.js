@@ -36,12 +36,11 @@ app.post("/counter/double", (req, res) => {
     return res.status(201).json(state);
 });
 
-app.put("/counter?value={number}", (req, res) => {
+app.put("/counter", (req, res) => {
     const changeNum = Number(req.query.value)
-    return console.log("new number",changeNum)
 
-    // state.counter = changeNum
-    // return res.status(201).json(state)
+    state.counter = changeNum
+    return res.status(201).json(state)
 })
 
 module.exports = app;
