@@ -44,4 +44,12 @@ app.post("/counter/decrement", (req, res) => {
   res.status(201).json({ counter: count });
 });
 
+// Express route handling for doubling the counter
+app.post("/counter/double", (req, res) => {
+  // Double the counter value
+  count = count * 2;
+  // Respond with the updated counter value
+  res.status(201).json({ counter: count });
+});
+
 module.exports = app;
