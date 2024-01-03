@@ -1,18 +1,28 @@
 //Include the express library
-const express = require("express")
+const express = require("express");
 //Include the morgan middleware
-const morgan = require("morgan")
+const morgan = require("morgan");
 //Include the cors middleware
-const cors = require("cors")
+const cors = require("cors");
 
 //Create a new express application
-const app = express()
+const app = express();
 
 //Tell express we want to use the morgan library
-app.use(morgan("dev"))
+app.use(morgan("dev"));
 //Tell express we want to use the cors library
-app.use(cors())
+app.use(cors());
 //Tell express to parse JSON in the request body
-app.use(express.json())
+app.use(express.json());
 
-module.exports = app
+let counter = 0;
+
+app.get('/', (req, res) => {
+    res.status(201).json({ message: 'Hello World!!' })
+  })
+
+app.get('/counter', (req, res) => {
+    res.json({ counter: counter })
+});
+
+module.exports = app;
