@@ -95,6 +95,14 @@ app.get("/counter/:name", (req, res) => {
   res.json({ counter: STATE[name] });
 });
 
+app.delete("/counter/:name", (req, res) => {
+  const name = evalCounter(req);
+
+  STATE[name] = 0;
+
+  res.json({ counter: STATE[name] });
+});
+
 app.post("/counter/:name/increment", (req, res) => {
   const name = evalCounter(req);
 
