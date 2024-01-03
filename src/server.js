@@ -33,4 +33,11 @@ app.post("/counter/decrement", (req, res) => {
     return res.status(201).json(state)
 })
 
+// DELETE
+app.delete("/counter", (req, res) => {
+
+    state.counter = 0
+    return res.status(200).json(state)
+})
+
 module.exports = app
