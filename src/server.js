@@ -69,7 +69,7 @@ app.get('/counter/:name', (req, res) => {
 })
 
 app.put('/counter', (req, res) => {
-  const { value } = req.route.query
+  const { value } = req.query
   setCount('', Number(value))
   const counter = checkCounterValue()
   res.status(201).json({ counter })
