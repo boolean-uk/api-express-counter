@@ -23,4 +23,9 @@ app.post('/counter/increment', (req, res) => {
     return res.json({"counter": count})
 })
 
+app.post('/counter/decrement', (req, res) => {
+    count--
+    return res.json({"counter": count})
+})
+
 module.exports = app
