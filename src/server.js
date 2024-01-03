@@ -18,7 +18,7 @@ app.get("/counter", (req, res) => {
 
 app.delete("/counter", (req, res) => {
     state.counter = 0;
-    return res.status(201).json(state);
+    return res.status(200).json(state);
 });
 
 app.post("/counter/increment", (req, res) => {
@@ -28,7 +28,6 @@ app.post("/counter/increment", (req, res) => {
 
 app.post("/counter/decrement", (req, res) => {
     state.counter--;
-    if (state.counter < 0) state.counter = 0
     return res.status(201).json(state);
 });
 
@@ -36,5 +35,13 @@ app.post("/counter/double", (req, res) => {
     state.counter = state.counter * 2;
     return res.status(201).json(state);
 });
+
+app.put("/counter?value={number}", (req, res) => {
+    const changeNum = Number(req.query.value)
+    return console.log("new number",changeNum)
+
+    // state.counter = changeNum
+    // return res.status(201).json(state)
+})
 
 module.exports = app;
