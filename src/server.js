@@ -54,4 +54,13 @@ app.put('/counter', (req, res, next) => {
   res.status(201).json({ counter: (state.counter += Number(req.query.value)) })
 })
 
+// GET retrieve the current counter for the provided counter name
+app.get('/counter/:name', (req, res, next) => {
+  if (!state[req.params.name]) {
+    state[req.params.name] = 0
+  }
+
+  res.status(200).json({ counter: state[req.params.name] })
+})
+
 module.exports = app
