@@ -10,8 +10,13 @@ let count = 5
 app.use(morgan("dev"), cors(), express.json())
 
 app.get('/counter', (req, res) => {
-    console.log(count)
     return res.json({"counter": count})
 })
+
+app.delete('/counter', (req, res) => { 
+    count = 0
+    return res.json({"counter": count})
+})
+
 
 module.exports = app
