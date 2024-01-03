@@ -29,21 +29,11 @@ app.post('/counter/increment', (req, res)=>{
     initailState.counter --
     res.status(201).json(initailState)
 }) 
-/* 
-app.post('/counter/decrement', (req, res)=>{
-    if( initailState.counter < 1){
-        initailState.counter = 0
-        return res.status(201).json(initailState)
 
-    }else{
-        initailState.counter --
-        res.status(201).json(initailState)
-    }
- 
-}) */
  
 app.post('/counter/double', (req, res)=>{
-    initailState.counter += 2
+
+    initailState.counter *= 2
     res.status(201).json(initailState)
 })
 
