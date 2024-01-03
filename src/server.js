@@ -27,7 +27,7 @@ app.delete("/counter", (req, res) => {
 })
 
 app.post("/counter/increment", (req, res) => {
-  res.json({counter: ++COUNTER})
+  res.status(201).json({counter: ++COUNTER})
 })
 
 module.exports = app
