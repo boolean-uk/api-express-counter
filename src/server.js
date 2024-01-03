@@ -1,19 +1,23 @@
-const express = require("express")
-const morgan = require("morgan")
-const cors = require("cors")
+const express = require("express");
+const morgan = require("morgan");
+const cors = require("cors");
 
+let counter = 0;
 
+const app = express();
 
-const app = express()
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Finally some API" });
+});
 
-app.get('/', (req,res) => {
-    res.status(200).json({ message : "Finally some API"})
-})
-app.use(morgan("dev"))
+app.get("/counter", (req, res) => {
+  res.status(200).json({ counter: counter });
+});
 
-app.use(cors())
+app.use(morgan("dev"));
 
-app.use(express.json())
+app.use(cors());
 
-module.exports = app
+app.use(express.json());
 
+module.exports = app;
