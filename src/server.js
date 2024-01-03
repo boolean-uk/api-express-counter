@@ -108,4 +108,17 @@ app.post('/counter/:name/double', (req, res, next) => {
   res.status(201).json({ counter: (state[counterName] *= 2) })
 })
 
+// PUT set the counter to a special value via a query parameter by name
+app.put('/counter/:name', (req, res, next) => {
+  const counterName = req.params.name
+
+  checkCounterName(counterName)
+
+  state[counterName] = 0
+
+  res
+    .status(201)
+    .json({ counter: (state[counterName] += Number(req.query.value)) })
+})
+
 module.exports = app
