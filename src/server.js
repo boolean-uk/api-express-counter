@@ -44,6 +44,8 @@ function multiplyByTwoWithWhileLoop(num) {
 
 let COUNTER = 0;
 
+const STATE = {};
+
 app.get("/counter", (req, res) => {
   res.json({ counter: COUNTER });
 });
@@ -69,6 +71,16 @@ app.post("/counter/double", (req, res) => {
 app.put("/counter", (req, res) => {
   COUNTER = Number(req.query.value);
   res.status(201).json({ counter: COUNTER });
+});
+
+app.get("/counter/:name", (req, res) => {
+  const { name } = req.params;
+
+  if (STATE[name] === undefined) {
+    STATE[name] = 0;
+  }
+
+  res.json({counter: STATE[name]})
 });
 
 module.exports = app;
