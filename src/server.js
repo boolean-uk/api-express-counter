@@ -15,36 +15,71 @@ app.use(cors())
 //Tell express to parse JSON in the request body
 app.use(express.json())
 
-let counter = 0
+class Counter {
+  constructor(name) {
+    this.name = name
+    this.value = 0
+  }
+}
+
+const counterArr = []
+
+const getCounter = (name) => {
+  if (name) {
+    return counterArr.find((counter) => counter.name === name)
+  } else {
+    return counterArr.find((counter) => counter.name === 'default')
+  }
+}
+
+const checkCounterValue = (name) => getCounter(name).value
+  
+const counterExists = (name) => !!getCounter(name)
+
+const addCounter = (name) => {
+  if (!counterExists(name)) {
+    counterArr.push(new Counter(name))
+  }
+}
+
+const changeCount = (name, amount) => {
+  const foundCounter = getCounter(name)
+  foundCounter.value += amount
+}
+
+const setCount = (name, amount) => {
+  const foundCounter = getCounter(name)
+  foundCounter.value = amount
+}
+
+addCounter('default')
 
 app.get('/counter/', (req, res) => {
+  const counter = checkCounterValue()
   res.json({ counter })
 })
 
-// app.put('/counter/?value=:value', (req, res) => {
-//   const { value } = req.params
-//   counter  = value
-//   res.json({ counter })
-// })
-
 app.post('/counter/increment', (req, res) => {
-  counter++
+  changeCount('', 1)
+  const counter = checkCounterValue()
   res.status(201).json({ counter })
 })
 
 app.post('/counter/decrement', (req, res) => {
-  counter--
+  changeCount('', -1)
+  const counter = checkCounterValue()
   res.status(201).json({ counter })
 })
 
 app.post('/counter/double', (req, res) => {
-  console.log(counter)
-  counter *= 2
+  setCount('', checkCounterValue() * 2)
+  const counter = checkCounterValue()
   res.status(201).json({ counter })
 })
 
 app.delete('/counter', (req, res) => {
-  counter = 0
+  setCount('', 0)
+  const counter = checkCounterValue()
   res.json({ counter })
 })
 
