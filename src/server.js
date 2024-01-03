@@ -13,6 +13,10 @@ app.get("/", (req, res) => {
 app.get("/counter", (req, res) => {
   res.status(200).json({ counter: counter });
 });
+app.post("/counter/increment", (req, res) => {
+  counter++;
+  res.status(201).json({ counter: counter });
+});
 
 app.use(morgan("dev"));
 
