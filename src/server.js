@@ -23,4 +23,10 @@ app.get("/", (req, res) => {
   res.status(201).json({ message: "Welcome to the counter app" });
 });
 
+// Express route handling for retrieving the counter value
+app.get("/counter", (req, res) => {
+  // Respond with the current counter value
+  res.json({ counter: count });
+});
+
 module.exports = app;
