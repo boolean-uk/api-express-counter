@@ -15,4 +15,36 @@ app.use(cors())
 //Tell express to parse JSON in the request body
 app.use(express.json())
 
+// Initialization of state
+const state = {
+  counter: 0
+}
+
+// GET counter
+app.get('/counter', (req, res, next) => {
+  res.status(200).json({ counter: state.counter })
+})
+
+// DELETE reset counter to 0
+app.delete('/counter', (req, res, next) => {
+  state.counter = 0
+
+  res.status(200).json({ counter: state.counter })
+})
+
+// POST Increment counter
+app.post('/counter/increment', (req, res, next) => {
+  res.status(201).json({ counter: ++state.counter })
+})
+
+// POST Decrement counter
+app.post('/counter/decrement', (req, res, next) => {
+  res.status(201).json({ counter: --state.counter })
+})
+
+// POST Double counter
+app.post('/counter/double', (req, res, next) => {
+  res.status(201).json({ counter: (state.counter *= 2) })
+})
+
 module.exports = app
