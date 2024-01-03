@@ -58,9 +58,7 @@ app.post('/counter/double', (req, res, next) => {
 
 // PUT set the counter to a special value via a query parameter
 app.put('/counter', (req, res, next) => {
-  state.counter = 0
-
-  res.status(201).json({ counter: (state.counter += Number(req.query.value)) })
+  res.status(201).json({ counter: (state.counter = Number(req.query.value)) })
 })
 
 // GET retrieve the current counter for the provided counter name
@@ -114,11 +112,9 @@ app.put('/counter/:name', (req, res, next) => {
 
   checkCounterName(counterName)
 
-  state[counterName] = 0
-
   res
     .status(201)
-    .json({ counter: (state[counterName] += Number(req.query.value)) })
+    .json({ counter: (state[counterName] = Number(req.query.value)) })
 })
 
 module.exports = app
