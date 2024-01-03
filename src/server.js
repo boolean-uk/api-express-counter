@@ -70,6 +70,11 @@ app.get('/counter/:name', (req, res, next) => {
   res.status(200).json({ counter })
 })
 
-//
+// DELETE reset the counter for the provided name to 0
+app.delete('/counter/:name', (req, res, next) => {
+  const counterName = checkCounterName(req.params.name)
+
+  res.status(200).json({ counter: (counterName = 0) })
+})
 
 module.exports = app
