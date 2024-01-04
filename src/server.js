@@ -29,4 +29,9 @@ app.post('/counter/double', (req, res) => {
     return res.status(201).json(counter)
 })
 
+app.post('/counter/reset', (req, res) => {
+    counter = 0
+    return res.status(201).json(counter)
+})
+
 module.exports = app
