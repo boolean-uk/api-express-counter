@@ -43,8 +43,8 @@ function multiplyByTwoWithWhileLoop(num) {
 }
 
 /**
- * A function that returns the value of the named counter.
- *
+ * A function that checks if the named counter exists, and creates it if not.
+ * 
  * @param { import('express').Request } req - Express request object
  * @returns { string } Named state set to 0 if named counter does not yet exist.
  */
