@@ -8,4 +8,11 @@ app.use(morgan("dev"))
 app.use(cors())
 app.use(express.json())
 
+let counter = 0
+
+app.get('/', (req, res) => {
+    res.json(counter)
+})
+
+
 module.exports = app
