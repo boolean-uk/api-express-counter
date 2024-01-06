@@ -38,16 +38,6 @@ npm install morgan
 npm install cors
 ```
 
-> **TIP!** You can install mutiple NPM packages by listing all of them in the same command, for example:
-> 
-> `npm install express morgan cors`
-> 
-> We have not included the `nodemon` package in this list because that is installed as a "developer dependency" (something which we only use for local development and which is not needed as part of the deployed production version of the app). This is why the installation command in step 3 above includes the `--save-dev` flag.
->
-> If we have multiple packages that we want to install as dev dependencies, then we can also list them all at once but we just need to include the `--save-dev` flag once:
->
-> `npm install --save-dev nodemon eslint prettier`
-
 6. Inside a `/src` directory, create two files.
 
 - Create a file that will run our app: `index.js` . This is our *entrypoint* - the source file that will start running our server.
@@ -106,13 +96,12 @@ Our servers is now running and *listening* for HTTP requests.
 
 Your application should maintain a simple numeric counter and provide the endpoints detailed in the [API Spec](https://boolean-uk.github.io/api-express-counter/).
 
-Each route should be detailed in a sequence diagram in the same way that you will have been shown during the morning lesson when covering the request-response cycle. Here is an example:
-![image](https://github.com/boolean-uk/api-express-counter/assets/16806557/4b23b5b4-189a-4dc4-83ef-c700b855005f)
+Each route should be detailed in a sequence diagram in the same way you did during the API address book exercise.
 
 Test each route using:
-- `fetch` (JavaScript)
-- `curl` (Command Line / Terminal / GitBash)
-- An API testing tool such as Postman or Insomnia
+- `fetch`
+- `curl`
+- An API testing tool such as postman or insomnia
 
 ## Running tests
 
