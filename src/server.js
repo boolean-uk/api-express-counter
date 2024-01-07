@@ -26,8 +26,12 @@ app.post("/counter/increment", (req, res) => {
 });
 
 app.post("/counter/decrement", (req, res) => {
-    state.counter--;
-    return res.status(201).json(state);
-  });
+  state.counter--;
+  return res.status(201).json(state);
+});
 
+app.delete('/counter',(req,res)=>{
+    state.counter = 0 
+    return res.status(200).json(state)
+})
 module.exports = app;
