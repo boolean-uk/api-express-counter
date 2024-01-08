@@ -1,26 +1,46 @@
-//Include the express library
-const express = require("express")
-//Include the morgan middleware
-const morgan = require("morgan")
-//Include the cors middleware
-const cors = require("cors")
+const express = require('express')
+const morgan = require('morgan')
+const cors = require('cors')
 
-//Create a new express application
+//define express as app
 const app = express()
 
-
-//Tell express we want to use the morgan library
-app.use(morgan("dev"))
-//Tell express we want to use the cors library
+//Using framworks as server
+app.use(morgan('dev'))
 app.use(cors())
-//Tell express to parse JSON in the request body
 app.use(express.json())
-const state = {
+
+
+
+const initailState = {
     "counter": 0
-}
-app.get('/counter',(req, res )=> {
-    res.status(200).json(state)
-    
+  }
+
+app.get('/counter', (req, res)=>{
+res.status(200).json(initailState)
 })
+
+app.post('/counter/increment', (req, res)=>{
+    initailState.counter ++
+    res.status(201).json(initailState)
+})
+
+ app.post('/counter/decrement', (req, res)=>{
+    initailState.counter --
+    res.status(201).json(initailState)
+}) 
+
+ 
+app.post('/counter/double', (req, res)=>{
+
+    initailState.counter *= 2
+    res.status(201).json(initailState)
+})
+
+app.delete('/counter', (req, res)=>{
+    initailState.counter = 0
+    res.status(200).json(initailState)
+    })
+    
 
 module.exports = app
