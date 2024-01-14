@@ -51,7 +51,8 @@ npm install cors
 6. Inside a `/src` directory, create two files.
 
 - Create a file that will run our app: `index.js` . This is our *entrypoint* - the source file that will start running our server.
-- Create a file that will define what our app does: `server.js`
+- Create a file that will define
+ what our app does: `server.js`
 
 7. In the app runner, add this code:
 
