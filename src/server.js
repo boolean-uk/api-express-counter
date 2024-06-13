@@ -29,22 +29,21 @@ app.get('/counter', (request, response) => {
 app.post('/counter/increment', (request, response) => {
     counter.counter++
 
-    response.sendStatus(201)
-    response.send(counter)
+
+    response.status(201).send(counter)
 })
 
 app.post('/counter/decrement', (request, response) => {
     counter.counter--
 
-    response.sendStatus(201)
-    response.send(counter)
+    
+    response.status(201).send(counter)
 })
 
 app.post('/counter/double', (request, response) => {
     counter.counter = counter.counter * 2
 
-    response.sendStatus(201)
-    response.send(counter)
+    response.status(201).send(counter)
 })
 
 app.delete('/counter', (request, response) => {
@@ -54,63 +53,85 @@ app.delete('/counter', (request, response) => {
 })
 
 app.put('/counter', (request, response) => {
-    const newValue = request.query.value
-    
-    if (newValue) {
-        counter.counter = newValue
+    const newValue = parseInt(request.query.value, 10)
+
+    if (isNaN(newValue)) {
+        return response.sendStatus(400)
     }
 
-    response.sendStatus(201)
-    response.send(counter)
+    counter.counter = newValue
+    response.status(201).send(counter)
 })
 
 app.get('/counter/:name', (request, response) => {
     const requestedCounter = counters.get(request.params.name)
     
+    if (!requestedCounter) {
+        return response.sendStatus(404)
+    }
+
     response.send(requestedCounter)
 })
 
 app.post('/counter/:name/increment', (request, response) => {
     const requestedCounter = counters.get(request.params.name)
-    requestedCounter.counter++
+    
+    if (!requestedCounter) {
+        return response.sendStatus(404)
+    }
 
-    response.sendStatus(201)
-    response.send(requestedCounter)
+    requestedCounter.counter++
+    response.status(201).send(requestedCounter)
 })
 
 app.post('/counter/:name/decrement', (request, response) => {
     const requestedCounter = counters.get(request.params.name)
-    requestedCounter.counter--
+    
+    if (!requestedCounter) {
+        return response.sendStatus(404)
+    }
 
-    response.sendStatus(201)
-    response.send(requestedCounter)
+    requestedCounter.counter--
+    response.status(201).send(requestedCounter)
 })
 
 app.post('/counter/:name/double', (request, response) => {
     const requestedCounter = counters.get(request.params.name)
+    
+    if (!requestedCounter) {
+        return response.sendStatus(404)
+    }
 
-    requestedCounter.counter = requestedCounter * 2
-
-    response.sendStatus(201)
-    response.send(requestedCounter)
+    requestedCounter.counter = requestedCounter.counter * 2
+    response.status(201).send(requestedCounter)
 })
 
 app.delete('/counter/:name', (request, response) => {
     const requestedCounter = counters.get(request.params.name)
-    requestedCounter.counter = 0
+    
+    if (!requestedCounter) {
+        return response.sendStatus(404)
+    }
 
+    requestedCounter.counter = 0
     response.send(requestedCounter)
 })
 
 app.put('/counter/:name', (request, response) => {
-    const newValue = request.query.value
-    
-    if (newValue) {
-        counters.get(request.params.name).counter = newValue
+    const newValue = parseInt(request.query.value, 10)
+
+    if (isNaN(newValue)) {
+        return response.sendStatus(400)
     }
 
-    response.sendStatus(201)
-    response.send(counters.get(request.params.name))
+    const requestedCounter = counters.get(request.params.name)
+    
+    if (!requestedCounter) {
+        return response.sendStatus(404)
+    }
+
+    requestedCounter.counter = newValue
+    response.status(201).send(requestedCounter)
 })
 
 module.exports = app
