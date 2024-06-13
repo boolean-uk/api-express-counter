@@ -20,8 +20,6 @@ const counter = {
 
 const counters = new Map()
 
-counters.set("cars", {counter:0})
-
 app.get('/counter', (request, response) => {
     response.send(counter)
 })
@@ -64,20 +62,22 @@ app.put('/counter', (request, response) => {
 })
 
 app.get('/counter/:name', (request, response) => {
-    const requestedCounter = counters.get(request.params.name)
+    let requestedCounter = counters.get(request.params.name)
     
     if (!requestedCounter) {
-        return response.sendStatus(404)
+        counters.set(request.params.name, {counter:0})
+        requestedCounter = counters.get(request.params.name)
     }
 
     response.send(requestedCounter)
 })
 
 app.post('/counter/:name/increment', (request, response) => {
-    const requestedCounter = counters.get(request.params.name)
+    let requestedCounter = counters.get(request.params.name)
     
     if (!requestedCounter) {
-        return response.sendStatus(404)
+        counters.set(request.params.name, {counter:0})
+        requestedCounter = counters.get(request.params.name)
     }
 
     requestedCounter.counter++
@@ -85,10 +85,11 @@ app.post('/counter/:name/increment', (request, response) => {
 })
 
 app.post('/counter/:name/decrement', (request, response) => {
-    const requestedCounter = counters.get(request.params.name)
+    let requestedCounter = counters.get(request.params.name)
     
     if (!requestedCounter) {
-        return response.sendStatus(404)
+        counters.set(request.params.name, {counter:0})
+        requestedCounter = counters.get(request.params.name)
     }
 
     requestedCounter.counter--
@@ -96,10 +97,11 @@ app.post('/counter/:name/decrement', (request, response) => {
 })
 
 app.post('/counter/:name/double', (request, response) => {
-    const requestedCounter = counters.get(request.params.name)
+    let requestedCounter = counters.get(request.params.name)
     
     if (!requestedCounter) {
-        return response.sendStatus(404)
+        counters.set(request.params.name, {counter:0})
+        requestedCounter = counters.get(request.params.name)
     }
 
     requestedCounter.counter = requestedCounter.counter * 2
@@ -107,10 +109,11 @@ app.post('/counter/:name/double', (request, response) => {
 })
 
 app.delete('/counter/:name', (request, response) => {
-    const requestedCounter = counters.get(request.params.name)
+    let requestedCounter = counters.get(request.params.name)
     
     if (!requestedCounter) {
-        return response.sendStatus(404)
+        counters.set(request.params.name, {counter:0})
+        requestedCounter = counters.get(request.params.name)
     }
 
     requestedCounter.counter = 0
@@ -124,10 +127,11 @@ app.put('/counter/:name', (request, response) => {
         return response.sendStatus(400)
     }
 
-    const requestedCounter = counters.get(request.params.name)
+    let requestedCounter = counters.get(request.params.name)
     
     if (!requestedCounter) {
-        return response.sendStatus(404)
+        counters.set(request.params.name, {counter:0})
+        requestedCounter = counters.get(request.params.name)
     }
 
     requestedCounter.counter = newValue
