@@ -22,6 +22,18 @@ const counter= {
     response.send(JSON.stringify(counter))
  })
 
+ app.post("/counter", (request, response) => {
+    counter.counter++
+    
+    response.send(JSON.stringify(counter))
+ })
+ 
+ app.delete("/counter", (request, response) => {
+    counter.counter = 0
+    
+    response.send(JSON.stringify(counter))
+ })
+
 
 
 
