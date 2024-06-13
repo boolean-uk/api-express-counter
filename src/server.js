@@ -19,19 +19,34 @@ const counter= {
  };
 
  app.get("/counter", (request, response) => {
-    response.send(JSON.stringify(counter))
+    response.send(counter)
  })
 
- app.post("/counter", (request, response) => {
+ app.post("/counter/increment", (request, response) => {
     counter.counter++
     
-    response.send(JSON.stringify(counter))
+    response.status(201)
+    response.send(counter)
+ })
+
+ app.post("/counter/decrement", (request, response) => {
+    counter.counter--
+    
+    response.status(201)
+    response.send(counter)
  })
  
+ app.post("/counter/double", (request, response) => {
+    counter.counter = counter.counter * 2
+    
+    response.status(201)
+    response.send(counter)
+ })
+
  app.delete("/counter", (request, response) => {
     counter.counter = 0
     
-    response.send(JSON.stringify(counter))
+    response.send(counter)
  })
 
 
