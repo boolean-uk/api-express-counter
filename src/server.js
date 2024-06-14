@@ -14,6 +14,20 @@ app.get('/counter', (req, res) => {
     res.status(200).json({counter: counter})
 })
 
+app.post('/counter/increment', (req, res) => {
+    counter++
+    res.status(201).json({counter: counter})
+})
+
+app.post('/counter/decrement', (req, res) => {
+    counter--
+    res.status(201).json({counter: counter})
+})
+
+app.delete('/counter', (req, res) => {
+    counter = 0
+    res.status(200).json({counter: counter})
+})
 
 
 
