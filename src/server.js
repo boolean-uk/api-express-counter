@@ -40,8 +40,11 @@ app.post('/counter/decrement', (req, res) => {
 })
 
 app.post('/counter/double', (req, res) => {
+    let count = 0
+    let getCount = counter.map((c) => {count = c.counter*2})
+    let newObj = {counter: count}
+    counter.push(newObj)
     res.status(201).json(counter)
-    counter.counter *= 2
 })
 
 app.put('/counter?value=:number', (req, res) => {
