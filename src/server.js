@@ -10,7 +10,7 @@ app.use(express.json())
 
 
 const counter = {
-    counter: 0
+    counter: 1
 }
 
 app.get('/counter', (req, res) => {
@@ -29,6 +29,11 @@ app.post('/counter/increment', (req, res) => {
 app.post('/counter/decrement', (req, res) => {
     res.status(201).json(counter)
     counter.counter--
+})
+
+app.post('/counter/double', (req, res) => {
+    res.status(201).json(counter)
+    counter.counter *= 2
 })
 
 module.exports = app
