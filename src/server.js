@@ -34,6 +34,10 @@ app.delete('/counter', (req, res) => {
     res.status(200).json({counter: counter})
 })
 
+app.put('/counter/:number', (req, res) => {
+    counter = req.params.number
+    res.status(201).json({counter})
+})
 
 
 module.exports = app;
