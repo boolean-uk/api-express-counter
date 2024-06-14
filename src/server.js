@@ -8,6 +8,11 @@ app.use(morgan("dev"))
 app.use(cors())
 app.use(express.json())
 
+const qs = require('qs')
+app.set('query parser', function (str) {
+  return qs.parse(str, { /* custom options */ })
+})
+
 const counter = {
     counter: 0
 }
@@ -33,6 +38,12 @@ app.post('/counter/decrement', (req, res) => {
 
 app.post('/counter/double', (req, res) => {
     counter.counter *= 2
+    res.status(201).json(counter)
+})
+
+app.put('/counter', (req, res) => {
+    const number = Number(req.query.value)
+    counter.counter = number
     res.status(201).json(counter)
 })
 
