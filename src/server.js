@@ -9,6 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 let counter = 0
+let cars = 0
 
 app.get('/counter', (req, res) => {
     res.status(200).json({counter: counter})
@@ -39,5 +40,11 @@ app.put('/counter/:number', (req, res) => {
     res.status(201).json({counter})
 })
 
+app.get('/counter/:name', (req, res) => {
+    if (req.params.name = 'cars') {
+        res.status(200).json({counter: cars})
+    }
+    
+})
 
 module.exports = app;
