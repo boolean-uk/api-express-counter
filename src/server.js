@@ -17,4 +17,8 @@ app.get('/counter', (req, res) => {
     res.status(200).json(counter)
 })
 
+app.delete('/counter', (req, res) => {
+    res.status(200).json(counter)
+})
+
 module.exports = app
