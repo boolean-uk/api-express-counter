@@ -43,8 +43,37 @@ app.put('/counter/:number', (req, res) => {
 app.get('/counter/:name', (req, res) => {
     if (req.params.name = 'cars') {
         res.status(200).json({counter: cars})
+    } else {
+        res.status(404)
     }
-    
+})
+
+app.delete('/counter/:name', (req, res) => {
+    if (req.params.name = 'cars') {
+        cars = 0
+        res.status(200).json({counter: cars})
+    } else {
+        res.status(404)
+    }
+})
+
+app.post('/counter/:name/increment', (req, res) => {
+    if (req.params.name = 'cars') {
+        cars ++
+        res.status(201).json({counter: cars})
+    } else {
+        res.status(404)
+    }
+})
+
+app.post('/counter/:name/decrement', (req, res) => {
+
+    if (req.params.name = 'cars') {
+        cars --
+        res.status(201).json({counter: cars})
+    } else {
+        res.status(404)
+    }
 })
 
 module.exports = app;
