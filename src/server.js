@@ -2,6 +2,7 @@
 const express = require("express")
 const morgan = require("morgan")
 const cors = require("cors")
+const { count } = require("console")
 const app = express()
 
 app.use(morgan("dev"))
@@ -49,6 +50,15 @@ app.post('/counter/double', (req, res) => {
 
 app.put('/counter?value=:number', (req, res) => {
     const number = Number(req.params.number)
+    const foundNumber = count.find((n) => n.counter === number)
+
+    if(!foundNumber) {
+        res.status(404).json({
+            message: 'Counter not found'
+        })
+        return
+    }
+    
     res.status(201).json(counter)
 })
 
