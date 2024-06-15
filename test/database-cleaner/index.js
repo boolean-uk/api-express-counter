@@ -1,3 +1,3 @@
-global.beforeEach(async() => {
-  jest.resetModules()
-})
+global.beforeEach(async () => {
+	jest.resetModules();
+});
