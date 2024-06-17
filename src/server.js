@@ -2,7 +2,6 @@
 const express = require("express")
 const morgan = require("morgan")
 const cors = require("cors")
-const { count } = require("console")
 const app = express()
 
 app.use(morgan("dev"))
@@ -10,56 +9,57 @@ app.use(cors())
 app.use(express.json())
 
 
-const counter = [
-    { counter: 1 }
-]
-    
+let counter = 0
 
 
 app.get('/counter', (req, res) => {
-    res.status(200).json(counter)
-})
-
-app.delete('/counter', (req, res) => {
-    res.status(200).json(counter)
+    res.status(200).json({
+        counter
+    })
 })
 
 app.post('/counter/increment', (req, res) => {
-    let count = 0
-    let getCount = counter.map((c) => {count = c.counter++})
-    let newObj = {counter: count}
-    counter.push(newObj)
-    res.status(201).json(counter)
+    counter++
+
+    res.status(201).json({
+        counter
+    })
 })
 
 app.post('/counter/decrement', (req, res) => {
-    let count = 0
-    let getCount = counter.map((c) => {count = c.counter--})
-    let newObj = {counter: count}
-    counter.push(newObj)
-    res.status(201).json(counter)
+    counter--
+
+    res.status(201).json({
+        counter
+    })
 })
 
 app.post('/counter/double', (req, res) => {
-    let count = 0
-    let getCount = counter.map((c) => {count = c.counter*2})
-    let newObj = {counter: count}
-    counter.push(newObj)
-    res.status(201).json(counter)
+    counter = counter * 2
+
+    res.status(201).json({
+        counter
+    })
 })
+
+app.delete('/counter', (req, res) => {
+
+    counter = 0
+
+    res.status(200).json({
+        counter
+    })
+})
+
 
 app.put('/counter?value=:number', (req, res) => {
     const number = Number(req.params.number)
-    const foundNumber = count.find((n) => n.counter === number)
 
-    if(!foundNumber) {
-        res.status(404).json({
-            message: 'Counter not found'
-        })
-        return
-    }
+    counter = number
     
-    res.status(201).json(counter)
+    res.status(201).json({
+        counter
+    })
 })
 
 module.exports = app
