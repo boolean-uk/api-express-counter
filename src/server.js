@@ -1,12 +1,14 @@
 const express = require('express')
-
+const counterRouter = require('./routers/counterRouter.js')
 const app = express()
 
 let counter = 200
 
-app.get('/counter', (req, res) => {
-  res.status(200).json(counter)
-})
+app.use('/counter', counterRouter)
+
+// app.get('/counter', (req, res) => {
+//   res.status(200).json(counter)
+// })
 
 app.delete('/counter', (req, res) => {
   counter = 0
