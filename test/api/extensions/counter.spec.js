@@ -13,6 +13,7 @@ describe("Counter Endpoint", () => {
       expect(response.body.counter).toEqual(0);
     });
   });
+
   describe("POST /counter", () => {
     it("Increment the counter for the provided name", async () => {
       const response = await supertest(app).post(`/counter/cars/increment`);
@@ -30,6 +31,7 @@ describe("Counter Endpoint", () => {
       expect(response.body.counter).toEqual(-1);
       expect(response2.body.counter).toEqual(-2);
     });
+
     it("Double the counter for the provided name", async () => {
       await supertest(app).put(`/counter/cars?value=2`);
       const response = await supertest(app).post(`/counter/cars/double`);
