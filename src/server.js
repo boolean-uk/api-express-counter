@@ -43,28 +43,28 @@ let counter = 0
 
 //app.use(express.json())
 
-app.get('/counter', (req, res) => {
-    res.status(200).json({ counter })
+app.get('/counter', (request, respond) => {
+    respond.status(200).json({ counter })
 })
 
-app.post('/counter/increment', (req, res) => {
+app.post('/counter/increment', (request, respond) => {
     counter++
-    res.status(201).json({ counter })
+    respond.status(201).json({ counter })
 })
 
-app.post('/counter/decrement', (req, res) => {
+app.post('/counter/decrement', (request, respond) => {
     counter--
-    res.status(201).json({ counter })
+    respond.status(201).json({ counter })
 })
 
-app.post('/counter/double', (req, res) => {
+app.post('/counter/double', (requst, respond) => {
     counter *= 2
-    res.status(201).json({ counter })
+    respond.status(201).json({ counter })
 })
 
-app.delete('/counter/reset', (req, res) => {
+app.delete('/counter', (request, respond) => {
     counter = 0
-    res.status(200).json({ counter })
+    respond.status(200).json({ counter })
 })
 
 
