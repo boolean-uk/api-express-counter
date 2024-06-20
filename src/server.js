@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 
 
+/*
 const myCounters = [
     {
         counter: 1
@@ -35,7 +36,37 @@ app.delete('/counter/reset', (request, response) => {
 })
 
 module.exports = app
+*/
+
+
+let counter = 0
+
+//app.use(express.json())
+
+app.get('/counter', (req, res) => {
+    res.status(200).json({ counter })
+})
+
+app.post('/counter/increment', (req, res) => {
+    counter++
+    res.status(201).json({ counter })
+})
+
+app.post('/counter/decrement', (req, res) => {
+    counter--
+    res.status(201).json({ counter })
+})
+
+app.post('/counter/double', (req, res) => {
+    counter *= 2
+    res.status(201).json({ counter })
+})
+
+app.delete('/counter/reset', (req, res) => {
+    counter = 0
+    res.status(200).json({ counter })
+})
 
 
 
-
+module.exports = app
