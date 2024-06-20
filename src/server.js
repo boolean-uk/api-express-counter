@@ -3,43 +3,78 @@ const express = require("express");
 const app = express();
 app.use(express.json());
 
-const counter = { counter: 0 };
+// Data
+const counters = { counter1: 0, counter2: 0, counter3: 0 };
 
-// the callback fn is call 'the route handler'
+// Standard
 app.get("/counter", (req, res) => {
-  res.status(200).send(counter);
+  res.status(200).json({ counter: counters.counter1 });
 });
 
 app.post("/counter/increment", (req, res) => {
-  counter.counter++;
-  res.status(201).send(counter);
+  counters.counter1++;
+  res.status(201).json({ counter: counters.counter1 });
 });
 
 app.post("/counter/decrement", (req, res) => {
-  if (counter.counter) counter.counter--;
-  res.status(201).send(counter);
+  counters.counter1--;
+  res.status(201).json({ counter: counters.counter1 });
 });
 
 app.post("/counter/double", (req, res) => {
-  if (counter.counter) counter.counter *= 2;
-  res.status(201).send(counter);
+  counters.counter1 *= 2;
+  res.status(201).json({ counter: counters.counter1 });
 });
 
 app.delete("/counter", (req, res) => {
-  counter.counter = 0;
-  res.status(200).send(counter);
+  counters.counter1 = 0;
+  res.status(200).json({ counter: counters.counter1 });
 });
 
 // Extension 1
 app.put("/counter", (req, res) => {
   if (!req.query.value) {
-    return res
-      .status(400)
-      .send("You should provied a value! e.g: /counter?value=number ");
+    return res.status(400).json({
+      message: "You should provied a value! ex: /counter?value=number",
+    });
   }
 
-  counter.counter = Number.parseInt(req.query.value, 10);
-  res.status(201).send(counter);
+  counters.counter1 = Number.parseInt(req.query.value, 10);
+  res.status(201).json({ counter: counters.counter1 });
+});
+
+// Extension 2
+app.get("/counter/:name", (req, res) => {
+  const counterName = req.params.name;
+  res.status(200).json({ counter: counters[counterName] });
+});
+
+app.post("/counter/:name/increment", (req, res) => {
+  const counterName = req.params.name;
+  counters[counterName]++;
+
+  res.status(201).json({ counter: counters[counterName] });
+});
+
+app.post("/counter/:name/decrement", (req, res) => {
+  const counterName = req.params.name;
+  counters[counterName]--;
+
+  res.status(201).json({ counter: counters[counterName] });
+});
+
+app.post("/counter/:name/double", (req, res) => {
+  const counterName = req.params.name;
+  counters[counterName] *= 2;
+
+  res.status(201).json({ counter: counters[counterName] });
+});
+
+app.delete("/counter/:name", (req, res) => {
+  const counterName = req.params.name;
+  counters[counterName] = 0;
+
+  res.status(200).json({ counter: counters[counterName] });
 });
 
 module.exports = app;
