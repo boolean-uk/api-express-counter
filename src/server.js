@@ -38,7 +38,7 @@ app.post('/counter/decrement', (req, res) => {
 })
 
 app.post('/counter/double', (req, res) => {
-    counter = 2 
+    counter *= 2 
     res.status(201).json({
         counter
     })
