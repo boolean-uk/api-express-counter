@@ -5,6 +5,7 @@ describe("Counter Endpoint", () => {
   beforeEach(() => {
     app = require("../../../src/server.js")
   })
+  
   describe("GET /counter", () => {
     it("Retrieve the current counter for the provided counter name", async () => {
       const response = await supertest(app).get(`/counter/cars`)
@@ -13,6 +14,7 @@ describe("Counter Endpoint", () => {
       expect(response.body.counter).toEqual(0)
     })
   })
+
   describe("POST /counter", () => {
     it("Increment the counter for the provided name", async () => {
       const response = await supertest(app).post(`/counter/cars/increment`)
@@ -22,6 +24,7 @@ describe("Counter Endpoint", () => {
       expect(response.body.counter).toEqual(1)
       expect(response2.body.counter).toEqual(2)
     })
+
     it("Decrement the counter for the provided name", async () => {
       const response = await supertest(app).post(`/counter/cars/decrement`)
       const response2 = await supertest(app).post(`/counter/cars/decrement`)
@@ -30,6 +33,7 @@ describe("Counter Endpoint", () => {
       expect(response.body.counter).toEqual(-1)
       expect(response2.body.counter).toEqual(-2)
     })
+
     it("Double the counter for the provided name", async () => {
       await supertest(app).put(`/counter/cars?value=2`)
       const response = await supertest(app).post(`/counter/cars/double`)
@@ -50,6 +54,7 @@ describe("Counter Endpoint", () => {
       expect(response2.body.counter).toEqual(200)
     })
   })
+
   describe("DELETE /counter", () => {
     it("Reset the counter for the provided name to 0", async () => {
       await supertest(app).post(`/counter/cars/increment`)
